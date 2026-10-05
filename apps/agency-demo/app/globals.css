@@ -1,0 +1,76 @@
+@import "tailwindcss";
+/* site.css อยู่ใน layer base เพื่อให้ utility ของ Tailwind (ใน components/ui) ชนะได้ */
+@import "@repo/ui/site.css" layer(base);
+
+/* ผูก token ของ shadcn/Tailwind เข้ากับสีของเว็บ (bg-background, text-muted-foreground, bg-primary ฯลฯ) */
+@theme inline {
+  --color-background: var(--ground);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted);
+  --color-border: var(--line);
+  --color-primary: var(--accent);
+  --color-primary-foreground: #141414;
+  --color-ring: var(--accent);
+  --font-sans: var(--font-body);
+}
+
+/* โทนมืดแบบเอเจนซี เปลี่ยนสีที่นี่ */
+:root {
+  --ground: #0f0f11;
+  --surface: #18181b;
+  --ink: #f2efe9;
+  --muted: #a9a49b;
+  --line: #2b2b30;
+  --accent: #e3b04b;
+  --accent-dark: #f0c86c;
+  --accent-soft: #3a3020;
+  --dark: #0a0a0b;
+  --on-dark: #f2efe9;
+  --radius: 14px;
+}
+
+/* ปรับปุ่มให้อ่านออกบนพื้นมืด */
+.sk-btn-primary, .sk-btn-primary:hover { color: #141414; }
+.sk-btn-outline:hover { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+.sk-field input, .sk-field select, .sk-field textarea { background: var(--ground); }
+
+
+/* แถบโลโก้ลูกค้าเลื่อนวน */
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; }
+.marquee-track { display: flex; gap: 56px; width: max-content; animation: marquee 32s linear infinite; }
+.marquee-track span { font-family: var(--font-display), sans-serif; font-size: 22px; color: var(--muted); white-space: nowrap; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.stats { margin: 0; }
+.stats div { display: flex; flex-direction: column; gap: 4px; border-left: 2px solid var(--accent); padding-left: 18px; }
+.stats dd { margin: 0; font-family: var(--font-display), sans-serif; font-size: 48px; line-height: 1; }
+
+.service .num { font-family: var(--font-display), sans-serif; color: var(--accent); font-size: 15px; }
+.review blockquote { font-size: 18px; }
+.cta { align-items: flex-start; }
+
+
+/* ผลงาน */
+.project .meta { display: flex; justify-content: space-between; }
+.project-body { display: grid; grid-template-columns: minmax(200px, 280px) minmax(0, 1fr); gap: 48px; }
+.project-facts { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.project-facts dt { font-size: 13px; color: var(--muted); }
+.project-facts dd { margin: 0; font-weight: 600; }
+@media (max-width: 760px) { .project-body { grid-template-columns: 1fr; gap: 24px; } }
+.next-project { display: flex; flex-direction: column; gap: 4px; padding: 28px 0; border-top: 1px solid var(--line); text-decoration: none; color: var(--ink); font-size: 24px; }
+.next-project:hover strong { color: var(--accent); }
+
+/* เกี่ยวกับ */
+.team { grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); }
+.member { display: flex; flex-direction: column; gap: 4px; }
+.member h3 { margin-top: 10px; }
+
+/* ติดต่อ */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; }
+.contact-aside { display: flex; flex-direction: column; gap: 10px; }
+.contact-aside h2 { font-size: 24px; }
+@media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }

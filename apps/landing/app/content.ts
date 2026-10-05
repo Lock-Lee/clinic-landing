@@ -1,0 +1,184 @@
+import type { LineReply, RichMenuItem } from "@repo/ui/line-chat";
+
+export const site = {
+  brand: "[ชื่อแบรนด์ของคุณ]",
+  url: "https://example.com", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
+  lineId: "[LINE ID ของคุณ]",
+  lineUrl: "#", // เช่น https://line.me/ti/p/~yourid
+  phone: "[เบอร์โทรของคุณ]",
+  phoneHref: "#", // เช่น tel:0812345678
+  email: "[อีเมล]",
+  facebook: "[Facebook Page]",
+};
+
+// ภาพในแถบเลื่อนของ hero (Unsplash ชั่วคราว) เปลี่ยนเป็นภาพหน้าจอผลงานจริงได้
+export const heroImages = [
+  "https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80&auto=format&fit=crop",
+];
+
+export type ShowcaseItem = {
+  name: string;
+  category: string;
+  url: string;
+  image: string; // ภาพปก: ตอนนี้เป็นภาพ Unsplash ชั่วคราว ใส่ภาพหน้าจอเว็บจริงไว้ที่ public/showcase/ แล้วเปลี่ยนเป็น "/showcase/xxx.jpg"
+};
+
+export const showcase: ShowcaseItem[] = [
+  { name: "[ชื่อคลินิก 1]", category: "คลินิกผิวหนังและเลเซอร์ · แพ็กเกจ Standard", url: "#", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop" },
+  { name: "[ชื่อคลินิก 2]", category: "ฟิลเลอร์และโบท็อกซ์ · แพ็กเกจ Starter", url: "#", image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&auto=format&fit=crop" },
+  { name: "[ชื่อคลินิก 3]", category: "ศัลยกรรมตกแต่ง · แพ็กเกจ Premium", url: "#", image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80&auto=format&fit=crop" },
+  { name: "[ชื่อคลินิก 4]", category: "ยกกระชับและปรับรูปหน้า · แพ็กเกจ Standard", url: "#", image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=900&q=80&auto=format&fit=crop" },
+  { name: "[ชื่อคลินิก 5]", category: "คลินิกรักษาสิว · แพ็กเกจ Starter", url: "#", image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=900&q=80&auto=format&fit=crop" },
+  { name: "[ชื่อคลินิก 6]", category: "ปลูกผมและเวลเนส · แพ็กเกจ Premium", url: "#", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80&auto=format&fit=crop" },
+];
+
+export const packages = [
+  {
+    name: "Starter",
+    type: "Landing Page หน้าเดียว",
+    forWho: "คลินิกเปิดใหม่ ต้องการเว็บเร็ว",
+    price: "9,900",
+    featured: false,
+    features: [
+      "Landing page 1 หน้า จากเทมเพลต",
+      "5-6 section",
+      "ปุ่ม LINE, โทร, แผนที่",
+      "รองรับมือถือ",
+      "SEO พื้นฐาน: title, description, sitemap, Google Search Console",
+      "แก้เนื้อหาผ่านเรา หรือเพิ่มระบบหลังบ้าน +3,900 บาท",
+      "แก้ไขงาน 2 รอบ",
+      "ส่งงานใน 5-7 วัน",
+      "ดูแลฟรี 1 เดือน",
+    ],
+  },
+  {
+    name: "Standard",
+    type: "Landing Page หน้าเดียว",
+    forWho: "คลินิกที่ยิงโฆษณาและต้องการปิดการขาย",
+    price: "19,900",
+    featured: true,
+    features: [
+      "Landing page 1 หน้า ดีไซน์เฉพาะแบรนด์",
+      "8-10 section รวมรีวิว โปรโมชัน ทีมแพทย์",
+      "ฟอร์มจองคิว แจ้งเตือนเข้า LINE ของคลินิก",
+      "ตั้งค่า LINE OA: ข้อความต้อนรับ Rich Menu ตอบอัตโนมัติ",
+      "ระบบหลังบ้าน แก้ข้อความ อัปโหลดรูป โปรโมชัน รีวิวได้เอง",
+      "ติด Pixel และ GA4",
+      "SEO + AEO: FAQ และ Schema ให้ Google และ AI ดึงไปตอบได้",
+      "แก้ไขงาน 3 รอบ",
+      "ส่งงานใน 10-14 วัน",
+      "ดูแลฟรี 2 เดือน",
+    ],
+  },
+  {
+    name: "Premium",
+    type: "เว็บไซต์หลายหน้า",
+    forWho: "คลินิกหลายบริการ หรือหลายสาขา",
+    price: "39,900",
+    featured: false,
+    features: [
+      "เว็บ 5-7 หน้า ดีไซน์เฉพาะ",
+      "หน้าบริการแยก และบทความ",
+      "ระบบหลังบ้านเต็มรูปแบบ เพิ่มหน้าบริการ บทความ รูปภาพได้เอง",
+      "จองคิวในแอป LINE ยืนยันและเตือนนัดอัตโนมัติ",
+      "SEO + AEO รายหน้า Schema คลินิก แพทย์ และบริการ",
+      "ปรับความเร็ว รองรับ 2 ภาษา",
+      "แก้ไขงาน 5 รอบ",
+      "ส่งงานใน 21-30 วัน",
+      "ดูแลฟรี 3 เดือน",
+    ],
+  },
+];
+
+// ระบบ LINE OA: แสดงใน section #line ของหน้าขาย
+export const lineTiers = [
+  { name: "Starter", detail: "ปุ่มลิงก์ไป LINE OA ของคลินิกทุกจุดบนเว็บ" },
+  { name: "Standard", detail: "ตั้งค่า LINE OA ข้อความต้อนรับ Rich Menu ตอบอัตโนมัติ และฟอร์มจองบนเว็บแจ้งเตือนเข้า LINE" },
+  { name: "Premium", detail: "จองคิวในแอป LINE ได้เลย ส่งข้อความยืนยันและเตือนก่อนถึงวันนัดอัตโนมัติ" },
+];
+
+export const lineAddon = { label: "ตั้งค่า LINE OA + Rich Menu แยก (ไม่ทำเว็บ)", price: "เริ่ม 3,900 บาท" };
+
+// ตัวอย่างแชทใน section #line กด Rich Menu แล้วบอทตอบ
+export const lineDemo = {
+  name: "คลินิกของคุณ",
+  avatar: "CL",
+  greeting: [
+    { text: "สวัสดีค่ะ ขอบคุณที่เพิ่มเราเป็นเพื่อน\nกดเมนูด้านล่างเพื่อจองคิว ดูโปร หรือคุยกับแอดมินได้เลยค่ะ" },
+  ],
+  menu: [
+    { label: "จองคิว", icon: "calendar", reply: [{ card: { title: "จองคิวออนไลน์", lines: ["เลือกบริการ วัน และเวลา", "ยืนยันนัดทันทีใน LINE"], button: "เลือกวันเวลา" } }] },
+    { label: "โปรโมชัน", icon: "tag", reply: [{ card: { title: "โปรเดือนนี้", lines: ["โบท็อกซ์กราม 3,990.-", "สกินบูสเตอร์ 2 ครั้ง 5,900.-"], button: "ดูโปรทั้งหมด" } }] },
+    { label: "บริการ", icon: "list", reply: [{ text: "บริการของเรา\n• โบท็อกซ์ / ฟิลเลอร์\n• ร้อยไหม\n• เลเซอร์ผิว\n• ดริปวิตามิน" }] },
+    { label: "รีวิว", icon: "star", reply: [{ text: "รีวิวจากลูกค้าจริงอยู่ที่หน้าเว็บของคลินิกค่ะ คะแนนเฉลี่ย 4.9" }] },
+    { label: "แผนที่", icon: "pin", reply: [{ card: { title: "คลินิกของคุณ", lines: ["เปิดทุกวัน 11:00-20:00", "มีที่จอดรถหน้าคลินิก"], button: "เปิด Google Maps" } }] },
+    { label: "คุยกับแอดมิน", icon: "chat", reply: [{ text: "แอดมินจะตอบกลับภายใน 5 นาทีในเวลาทำการค่ะ พิมพ์คำถามไว้ได้เลย" }] },
+  ],
+} satisfies { name: string; avatar: string; greeting: LineReply[]; menu: RichMenuItem[] };
+
+// ราคาจริงจากผู้ให้บริการ ณ ต.ค. 2026 (Hostinger, THNIC) ตรวจอีกครั้งก่อนออกใบเสนอราคา
+export const domainRows = [
+  { label: "โดเมน .com", detail: "เหมาะกับคลินิกทั่วไป", price: "เริ่ม 519 บาท/ปี" },
+  { label: "โดเมน .co.th", detail: "สำหรับคลินิกที่จดเป็นนิติบุคคล", price: "เริ่ม 856 บาท/ปี" },
+  { label: "โดเมน .clinic", detail: "ชื่อโดเมนเฉพาะธุรกิจคลินิก", price: "เริ่ม 1,800 บาท/ปี" },
+  { label: "โฮสติ้ง + SSL", detail: "สำหรับ Landing page", price: "เริ่ม 159 บาท/เดือน" },
+  { label: "โฮสติ้งสำหรับระบบหลังบ้าน", detail: "สำหรับเว็บที่แก้ไขเนื้อหาเองได้", price: "เริ่ม 229 บาท/เดือน" },
+];
+
+export const maPlans = [
+  { name: "Basic", detail: "สำรองข้อมูล อัปเดตระบบ แก้เว็บล่ม", price: "500 บาท/เดือน" },
+  { name: "Standard", detail: "เพิ่มแก้ข้อความ รูป โปรโมชัน 4 ครั้ง/เดือน", price: "1,500 บาท/เดือน" },
+  { name: "Pro", detail: "แก้ไม่จำกัด section ใหม่เดือนละ 1 เปลี่ยน Rich Menu ตามโปร รายงานสถิติ", price: "3,000 บาท/เดือน" },
+];
+
+export const steps = [
+  { title: "1. คุยโจทย์", detail: "บริการหลัก กลุ่มลูกค้า และเว็บตัวอย่างที่ชอบ" },
+  { title: "2. มัดจำและส่งข้อมูล", detail: "คลินิกส่งโลโก้ รูป ข้อความ และราคาโปรโมชัน" },
+  { title: "3. ออกแบบและแก้ไข", detail: "ส่งลิงก์ตัวอย่างให้ดูบนมือถือ แก้ตามรอบของแพ็กเกจ" },
+  { title: "4. ขึ้นเว็บจริง", detail: "เชื่อมโดเมน ติดตั้งตัววัดผล และสอนใช้งาน" },
+];
+
+// คำถามที่พบบ่อย: แสดงบนหน้าเว็บและส่งเป็น FAQPage Schema ให้ Google / AI ใช้ตอบ (AEO)
+export const faqs = [
+  {
+    q: "เชื่อมเว็บกับ LINE OA ได้ไหม มีค่าใช้จ่ายอะไรบ้าง?",
+    a: "ได้ แพ็กเกจ Standard ตั้งค่า LINE OA และให้ฟอร์มจองบนเว็บแจ้งเตือนเข้า LINE ของคลินิก Premium จองคิวในแอป LINE ได้เลย บัญชี LINE OA เปิดฟรี ถ้าส่งข้อความหาลูกค้าเกินโควตาฟรีของ LINE คลินิกจ่ายค่าแพ็กเกจกับ LINE โดยตรง",
+  },
+  {
+    q: "ทำเว็บไซต์หรือ Landing Page คลินิกความงามราคาเท่าไร?",
+    a: "เริ่มต้น 9,900 บาท มี 3 แพ็กเกจ คือ Starter 9,900 บาท และ Standard 19,900 บาท เป็น Landing Page หน้าเดียว ส่วน Premium 39,900 บาท เป็นเว็บไซต์หลายหน้า จ่ายครั้งเดียว ไม่รวมโดเมน โฮสติ้ง และค่าดูแลรายเดือน",
+  },
+  {
+    q: "ใช้เวลาทำเว็บกี่วัน?",
+    a: "Starter 5-7 วัน, Standard 10-14 วัน และ Premium 21-30 วัน นับจากวันที่ได้รับข้อมูลและรูปภาพจากคลินิกครบ",
+  },
+  {
+    q: "คลินิกแก้ไขข้อความและรูปภาพเองได้ไหม?",
+    a: "ได้ แพ็กเกจ Standard และ Premium มีระบบหลังบ้านให้แก้ข้อความ อัปโหลดรูป โปรโมชัน และรีวิวเอง ส่วน Starter เพิ่มระบบหลังบ้านได้ 3,900 บาท",
+  },
+  {
+    q: "ค่าโดเมนและโฮสติ้งเท่าไร?",
+    a: "โดเมน .com เริ่ม 519 บาท/ปี, .co.th เริ่ม 856 บาท/ปี และโฮสติ้งเริ่ม 159 บาท/เดือน คิดตามราคาจริงของผู้ให้บริการ จดในชื่อคลินิกเอง",
+  },
+  {
+    q: "SEO และ AEO ต่างกันอย่างไร?",
+    a: "SEO ช่วยให้เว็บติดอันดับในผลค้นหา Google ส่วน AEO ช่วยให้ Google และผู้ช่วย AI อย่าง ChatGPT หรือ Gemini ดึงข้อมูลคลินิกไปตอบคำถามได้ตรง ผ่านคำถามที่พบบ่อยและ Schema",
+  },
+  {
+    q: "ถ้าแก้ไขงานเกินจำนวนรอบในแพ็กเกจคิดเงินอย่างไร?",
+    a: "คิดเป็นงาน CR (Change Request) ตามเนื้องานจริง และแจ้งราคาให้คลินิกยืนยันก่อนเริ่มทุกครั้ง",
+  },
+  {
+    q: "เนื้อหาโฆษณาบนเว็บต้องขออนุญาตไหม?",
+    a: "ต้องเป็นไปตามเกณฑ์ของกรมสนับสนุนบริการสุขภาพ (สบส.) คลินิกเป็นผู้ขออนุมัติโฆษณา เราช่วยจัดเนื้อหาให้เหมาะสมได้",
+  },
+];

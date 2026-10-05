@@ -1,0 +1,261 @@
+@import "tailwindcss";
+@import "@repo/ui/line-chat.css" layer(base);
+
+/* ผูก token ของ shadcn/Tailwind เข้ากับสีของเว็บ */
+@theme inline {
+  --color-background: var(--ground);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted);
+  --color-border: var(--line);
+  --color-primary: var(--accent);
+  --color-primary-foreground: #ffffff;
+  --color-ring: var(--accent);
+  --font-sans: var(--font-body);
+}
+
+/* CSS เดิมของเว็บอยู่ใน layer base เพื่อให้ utility ของ Tailwind ใน components/ui ชนะได้ */
+@layer base {
+:root {
+  --ground: #f6f3f4;
+  --surface: #ffffff;
+  --ink: #2a1a2e;
+  --muted: #54424f;
+  --line: #e2d9dd;
+  --accent: #8e2c57;
+  --accent-dark: #5e1b39;
+  --accent-soft: #f3c9da;
+  --on-ink-muted: #d9c9d2;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body), "Noto Sans Thai", Tahoma, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+h1, h2, h3, .brand, .price, .steps strong {
+  font-family: var(--font-display), "Noto Sans Thai", Tahoma, sans-serif;
+}
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: clamp(36px, 5vw, 58px); line-height: 1.2; font-weight: 700; }
+h2 { font-size: clamp(28px, 3.5vw, 36px); line-height: 1.25; font-weight: 700; }
+h3 { font-size: 20px; font-weight: 600; }
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.container { max-width: 1160px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.section { padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 36px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; }
+.section-head p { color: var(--muted); max-width: 620px; }
+.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+.grid { display: grid; gap: 28px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 48px; }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); }
+
+/* buttons */
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 13px 28px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); color: #fff; }
+.btn-outline { border-color: var(--ink); color: var(--ink); }
+.btn-outline:hover { background: var(--ink); color: #fff; }
+.btn-light { background: var(--accent-soft); color: var(--ink); }
+.btn-light:hover { background: #fff; color: var(--ink); }
+.btn-outline-light { border-color: #fff; color: #fff; }
+.btn-outline-light:hover { background: #fff; color: var(--ink); }
+
+/* header */
+.header { border-bottom: 1px solid var(--line); background: var(--ground); position: sticky; top: 0; z-index: 10; }
+.header-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding-top: 14px; padding-bottom: 14px; }
+.brand { font-weight: 700; font-size: 22px; color: var(--ink); text-decoration: none; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; }
+.nav a:not(.btn) { color: var(--ink); text-decoration: none; padding: 10px 0; }
+.nav a:not(.btn):hover { color: var(--accent); }
+.nav .btn { padding: 10px 22px; }
+section[id] { scroll-margin-top: 80px; }
+
+/* hero */
+
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* placeholder thumbnail */
+
+/* showcase */
+
+/* packages */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+.card h3 { font-size: 24px; font-weight: 700; }
+.card-title { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.card-for { color: var(--muted); }
+.card ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.card .btn { margin-top: auto; }
+.price { font-size: 44px; font-weight: 700; line-height: 1; }
+.price span { font-size: 18px; font-weight: 500; }
+.card-featured { background: var(--ink); border-color: var(--ink); color: #fff; }
+.card-featured .card-for { color: var(--on-ink-muted); }
+.badge { background: var(--accent-soft); color: var(--ink); font-size: 13px; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+
+/* add-ons */
+.addon { display: flex; flex-direction: column; gap: 20px; }
+.addon h2 { font-size: 30px; }
+.rows { margin: 0; border-bottom: 1px solid var(--line); }
+.rows > div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.rows dt { display: flex; flex-direction: column; }
+.rows dd { margin: 0; font-weight: 600; white-space: nowrap; }
+
+/* process */
+
+.note { max-width: 760px; }
+
+/* contact + footer */
+.contact { background: var(--ink); color: #fff; }
+.contact-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; padding-top: 72px; padding-bottom: 72px; }
+.contact-inner > div:first-child { max-width: 560px; display: flex; flex-direction: column; gap: 10px; }
+.contact p { color: var(--on-ink-muted); }
+.contact-actions { display: flex; flex-direction: column; gap: 12px; }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 28px; padding-bottom: 28px; color: var(--muted); font-size: 15px; }
+
+@media (max-width: 640px) {
+  .header { position: static; }
+  .nav { gap: 0 18px; }
+  .section, .contact-inner { padding-top: 52px; padding-bottom: 52px; }
+
+  .contact-actions { width: 100%; }
+}
+/* ---------- animation ---------- */
+:root { --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(142, 44, 87, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(142, 44, 87, 0); }
+}
+
+/* hero: ไล่ขึ้นทีละบรรทัดตอนโหลด */
+
+/* ป้ายลอยข้างภาพ hero */
+
+/* เลื่อนหน้าจอถึงแล้วค่อยโผล่ (คลาสถูกใส่โดย app/motion.tsx ปิด JS ก็ยังเห็นเนื้อหาครบ) */
+.reveal-on .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-on .reveal.is-in { opacity: 1; transform: none; }
+
+/* header มีเงาเมื่อเลื่อนลง */
+.header { transition: box-shadow 0.25s, background 0.25s; }
+.scrolled .header { box-shadow: 0 6px 24px rgba(42, 26, 46, 0.08); background: rgba(246, 243, 244, 0.92); backdrop-filter: blur(8px); }
+
+/* hover */
+.btn { transition: background 0.2s, color 0.2s, transform 0.2s var(--ease-out), box-shadow 0.2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary:hover { box-shadow: 0 8px 20px rgba(142, 44, 87, 0.3); }
+.btn:active { transform: translateY(0); }
+
+.nav a:not(.btn) { position: relative; }
+.nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 4px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ease-out);
+}
+.nav a:not(.btn):hover::after { transform: scaleX(1); }
+
+.card { transition: transform 0.3s var(--ease-out), box-shadow 0.3s; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(42, 26, 46, 0.12); }
+.card-featured:hover { box-shadow: 0 18px 44px rgba(42, 26, 46, 0.35); }
+.card-featured .badge { animation: pulse 2.4s ease-in-out infinite; }
+
+.rows > div { transition: background 0.2s, padding 0.2s; }
+.rows > div:hover { background: var(--ground); padding-left: 10px; padding-right: 10px; }
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* เงื่อนไขใต้แพ็กเกจ */
+.terms { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+
+/* FAQ */
+.faq-list { border-bottom: 1px solid var(--line); max-width: 860px; }
+.faq { border-top: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  font-weight: 600;
+  font-size: 18px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--accent); transition: transform 0.25s var(--ease-out); }
+.faq[open] summary::after { transform: rotate(45deg); }
+.faq summary:hover { color: var(--accent); }
+.faq summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.faq p { padding-bottom: 20px; max-width: 720px; }
+
+/* LINE OA */
+.line-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 48px; align-items: center; }
+.line-copy { display: flex; flex-direction: column; gap: 24px; }
+.line-section .lcm-phone { --lcm-accent: var(--accent); }
+
+/* ปุ่ม LINE ลอยมุมขวาล่าง ไปที่ LINE OA ของเรา */
+.line-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 20;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #06c755;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.4);
+  transition: transform 0.2s var(--ease-out);
+}
+.line-float:hover { color: #fff; transform: scale(1.06); }
+.line-float:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* ประเภทงานบนการ์ดแพ็กเกจ */
+.card-type { font-size: 14px; font-weight: 600; color: var(--accent); margin-top: 4px; }
+.card-featured .card-type { color: var(--accent-soft); }
+}

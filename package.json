@@ -1,21 +1,23 @@
 {
-  "name": "clinic-landing",
-  "version": "1.0.0",
+  "name": "clinic-web",
   "private": true,
+  "packageManager": "bun@1.4.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "typecheck": "turbo run typecheck",
+    "dev:landing": "turbo run dev --filter=landing",
+    "dev:demo": "turbo run dev --filter=clinic-demo",
+    "dev:agency": "turbo run dev --filter=agency-demo",
+    "dev:full": "turbo run dev --filter=clinic-full-demo",
+    "dev:branch": "turbo run dev --filter=clinic-branch-demo"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "^5.6.0"
+    "turbo": "^2.11.7"
   }
 }
