@@ -24,12 +24,7 @@ async function StaffHome({ user }: { user: User }) {
       <main className="adm-main">
         <h1 className="ca-h1">คลินิกทั้งหมด</h1>
 
-        <details className="ca-add">
-          <summary className="adm-btn adm-btn-primary">+ เพิ่มคลินิก</summary>
-          <div className="adm-card">
-            <ClinicForm action={createClinicAction} />
-          </div>
-        </details>
+        <ClinicForm action={createClinicAction} summary="+ เพิ่มคลินิก" />
 
         {clinics === null && <div className="adm-card adm-error">เชื่อมต่อฐานข้อมูลไม่ได้ ลองใหม่อีกครั้ง</div>}
 

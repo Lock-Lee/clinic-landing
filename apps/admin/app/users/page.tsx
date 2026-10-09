@@ -24,13 +24,7 @@ export default async function UsersPage() {
           <div className="adm-card adm-error">เชื่อมต่อฐานข้อมูลไม่ได้ ลองใหม่อีกครั้ง</div>
         ) : (
           <>
-            <details className="ca-add">
-              <summary className="adm-btn adm-btn-primary">+ เพิ่มผู้ใช้</summary>
-              <div className="adm-card">
-                <p className="adm-muted">ระบบสร้างรหัสผ่านชั่วคราวให้ ผู้ใช้ต้องเปลี่ยนรหัสตอนเข้าครั้งแรก</p>
-                <UserForm action={createUserAction} clinics={clinics.map((c) => ({ id: c.id, name: c.name }))} />
-              </div>
-            </details>
+            <UserForm action={createUserAction} clinics={clinics.map((c) => ({ id: c.id, name: c.name }))} summary="+ เพิ่มผู้ใช้" />
 
             <ul className="ca-rows">
               {users.map((u) => (

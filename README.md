@@ -19,7 +19,8 @@ monorepo สำหรับเว็บขายบริการทำเว�
 ```bash
 bun install
 bun run db:up          # Postgres + ที่เก็บรูป (SeaweedFS) ใน Docker ต้องเปิด Docker/OrbStack ก่อน
-bun run db:seed        # คลินิกตัวอย่าง + บัญชีทดสอบของ admin กลาง (ดูรหัสใน packages/db/seed.ts)
+bun run db:seed        # คลินิกตัวอย่าง + บัญชีทดสอบของ admin กลาง (ดูรหัสใน packages/db/seed-data.ts)
+bun run clinic:new --id ... # เปิดคลินิกลูกค้าใหม่ (ดู .claude/skills/new-clinic) รหัสชั่วคราวอยู่ใน .onboarding/
 bun run dev            # รันทุกแอป
 bun run dev:landing    # -> http://localhost:3000
 bun run dev:starter    # -> http://localhost:3002

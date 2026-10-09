@@ -7,7 +7,7 @@ export function PasswordForm({ minLength: MIN_PASSWORD }: { minLength: number })
   const [state, action, pending] = useActionState<PasswordState, FormData>(changePasswordAction, {});
   const [clientError, setClientError] = useState<string | null>(null);
 
-  // เช็กฝั่ง client ก่อน (server เช็กซ้ำ) และไม่ให้ฟอร์มล้างตอน error
+  // เช็กฝั่ง client ก่อน (server เช็กซ้ำ) และไม่ให้ฟอร์มล้างตอน error (ก่อน hydrate ส่งผ่าน action แบบ POST)
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -24,7 +24,7 @@ export function PasswordForm({ minLength: MIN_PASSWORD }: { minLength: number })
   const error = clientError ?? state.error;
 
   return (
-    <form onSubmit={onSubmit} className="ca-form">
+    <form action={action} onSubmit={onSubmit} className="ca-form">
       <div className="adm-field">
         <label htmlFor="current">รหัสผ่านเดิม</label>
         <input id="current" name="current" type="password" autoComplete="current-password" required />

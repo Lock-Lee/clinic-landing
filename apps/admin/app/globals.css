@@ -58,7 +58,7 @@ body { margin: 0; background: #f4f6f5; overflow-x: hidden; }
 .ca-add > summary { list-style: none; align-self: flex-start; width: fit-content; }
 .ca-add > summary::-webkit-details-marker { display: none; }
 .ca-add[open] > summary { background: var(--adm-surface); color: var(--adm-ink); border-color: var(--adm-line); }
-.ca-add > .adm-card { margin-top: 12px; }
+.ca-add > .adm-card { margin-top: 0; }
 
 /* รหัสชั่วคราว แสดงครั้งเดียว */
 .ca-temp { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; background: #fff6e0; border: 1px solid #f0dca8; border-radius: 12px; padding: 14px; }
@@ -89,3 +89,6 @@ body { margin: 0; background: #f4f6f5; overflow-x: hidden; }
   .adm-top-actions { flex: 1 1 100%; flex-wrap: wrap; justify-content: flex-end; }
   .adm-top-actions .adm-btn { min-height: 40px; padding: 6px 10px; font-size: 14px; }
 }
+
+/* ฟอร์มผู้ใช้: บทบาททีมงานไม่ต้องเลือกคลินิก */
+.ca-form:has(.ca-role option[value="staff"]:checked) .ca-checks { display: none; }

@@ -35,7 +35,8 @@ async function newPage(browser: Browser) {
 const acceptDialogs = (page: Page) => page.on("dialog", (d) => void d.accept());
 
 async function openUser(page: Page, id: number) {
-  await page.goto(`${URL.admin}/users/${id}`);
+  // รอ hydrate ก่อนกดปุ่มที่ต้องถามยืนยัน
+  await page.goto(`${URL.admin}/users/${id}`, { waitUntil: "networkidle" });
   await expect(page.locator(".ca-h1")).toBeVisible();
 }
 
@@ -44,6 +45,7 @@ test("ทีมงานสร้างบัญชีคลินิก รห�
   await loginAdmin(page, STAFF);
   await page.getByRole("link", { name: "ผู้ใช้", exact: true }).click();
   await expect(page).toHaveURL(/\/users$/);
+  await page.waitForLoadState("networkidle");
 
   await page.locator("summary", { hasText: "+ เพิ่มผู้ใช้" }).click();
   await page.getByLabel("อีเมล", { exact: true }).fill(address);
@@ -53,7 +55,7 @@ test("ทีมงานสร้างบัญชีคลินิก รห�
   await expect(page.locator(".adm-error")).toContainText("ต้องเลือกอย่างน้อย 1 คลินิก");
   // เลือกทีมงานแล้วช่องคลินิกหาย
   await page.getByLabel("บทบาท").selectOption("staff");
-  await expect(page.locator(".ca-checks")).toHaveCount(0);
+  await expect(page.locator(".ca-checks")).toBeHidden();
   await page.getByLabel("บทบาท").selectOption("clinic");
   await page.getByLabel(/Lumière Clinic/).check();
   await page.getByRole("button", { name: "สร้างบัญชี" }).click();
@@ -189,6 +191,7 @@ test("บัญชีคลินิกเข้าหน้าจัดกา�
 test("ทีมงานเพิ่มคลินิกใหม่จากแม่แบบเดิม ผูกผู้ใช้ และปิดคลินิกแล้วผู้ใช้มองไม่เห็น", async ({ page, browser }) => {
   await loginAdmin(page, STAFF);
   acceptDialogs(page);
+  await page.waitForLoadState("networkidle");
 
   await page.locator("summary", { hasText: "+ เพิ่มคลินิก" }).click();
   await page.getByLabel("รหัสคลินิก").fill("e2e-clinic");
@@ -234,7 +237,7 @@ test("ทีมงานเพิ่มคลินิกใหม่จาก�
   expect(await storedContent("standard")).toBeNull();
 
   // ปิดคลินิก
-  await page.goto(`${URL.admin}/clinics/e2e-clinic/settings`);
+  await page.goto(`${URL.admin}/clinics/e2e-clinic/settings`, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: "ปิดใช้งานคลินิก" }).click();
   await expect(page.getByRole("button", { name: "เปิดใช้งานคลินิก" })).toBeVisible();
   await page.goto(URL.admin);
