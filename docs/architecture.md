@@ -35,14 +35,25 @@ Turborepo + bun workspaces + Next.js 15 (App Router) หน้า landing เป
 - แต่ละเดโม: `content.ts` มี `SITE_ID`, `editableDefaults`, `EditableContent` / `app/admin/` (page + editor) / `app/api/admin/route.ts` + `upload/route.ts` / หน้าที่อ่านเนื้อหาใช้ `force-dynamic` / package.json `exports` ให้ admin กลางดึง `./content` และ `./admin-editor`
 - **`/admin` ในเว็บเดโมไม่มี login จริง** ไว้ให้ลูกค้าลองเล่น ทุกคนแก้และเห็นชุดเดียวกัน
 - `apps/admin` (พอร์ต 3010 `bun run dev:admin`): admin กลาง login จริง คลินิกแก้ได้เฉพาะเว็บตัวเอง ตามสิทธิ์แพ็กเกจ (ตรวจทั้งหน้าและ API) แต่ละเว็บคลินิกใช้โดเมนของตัวเองได้ (`clinics.domain`) เว็บคลินิกแค่อ่านเนื้อหาจากฐานข้อมูลกลาง
+  - ทีมงาน (staff): `/` คลินิกทั้งหมด + เพิ่มคลินิก, `/clinics/[id]/settings` ชื่อ แพ็กเกจ แม่แบบ ลิงก์ โดเมน ปิด/เปิด, `/users` + `/users/[id]` สร้างผู้ใช้ (รหัสชั่วคราวแสดงครั้งเดียว) แก้ รีเซ็ตรหัส ปิด/เปิด ลบ, `/audit` บันทึกการใช้งาน
+  - ทุกคน: `/account/password` เปลี่ยนรหัส บัญชีที่ได้รหัสชั่วคราวถูกบังคับมาหน้านี้ก่อน
+  - ฟังก์ชันอยู่ใน `@repo/db/users` (ทุกการแก้บันทึก `audit_log`) แม่แบบของคลินิก = `clinics.template ?? clinics.id` (`apps/admin/lib/templates.ts`)
+  - เปิดคลินิกลูกค้าใหม่จาก command line: `bun run clinic:new` (skill `new-clinic`) รหัสชั่วคราวเขียนลง `.onboarding/<id>.txt`
+- เว็บคลินิกจริงที่ใช้แม่แบบเดโม: ตั้ง `CLINIC_ID` ตอน deploy (`SITE_ID = process.env.CLINIC_ID ?? "<แม่แบบ>"`)
 
 ## เทสต์ e2e (`e2e/`)
 
 - Playwright รันกับ dev server ที่เปิดอยู่ (ไม่มีก็สั่งเปิดเอง ไม่ build) ต้องเปิด Docker ก่อน: `bun run test:e2e` / ครั้งแรก `cd e2e && bunx playwright install chromium`
 - รันทีละเทสต์ (`workers: 1`) เพราะทุกเว็บใช้ฐานข้อมูลเดียวกัน ก่อนและหลังรัน seed ใหม่และล้าง `site_content` ทุกเทสต์ล้างเนื้อหาที่ตัวเองแก้ (`fixtures/db.ts`)
 - บัญชีทดสอบอ่านจาก `packages/db/seed-data.ts` ที่เดียวกับ `db:seed`
-- `landing.spec.ts` ราคา/ลิงก์, `demo-admin.spec.ts` หลังบ้านเดโม 3 แพ็ก (แก้ อัปโหลดรูป หน้าบริการใหม่ slug ซ้ำ รูปในบทความ เมนูย่อย สิทธิ์ API), `central-admin.spec.ts` login สิทธิ์คลินิก สิทธิ์แพ็กเกจ API, `mobile.spec.ts` 375px ไม่เลื่อนแนวนอน
+- `landing.spec.ts` ราคา/ลิงก์, `demo-admin.spec.ts` หลังบ้านเดโม 3 แพ็ก (แก้ อัปโหลดรูป หน้าบริการใหม่ slug ซ้ำ รูปในบทความ เมนูย่อย สิทธิ์ API), `central-admin.spec.ts` login สิทธิ์คลินิก สิทธิ์แพ็กเกจ API, `user-management.spec.ts` สร้าง/รีเซ็ต/ปิด/ลบผู้ใช้ คลินิกใหม่ บังคับเปลี่ยนรหัส, `mobile.spec.ts` 375px ไม่เลื่อนแนวนอน
+- ผู้ใช้ `%@e2e.test` และคลินิก `e2e-%` ถูกลบอัตโนมัติ (`fixtures/cleanup.ts`) `audit_log` ไม่ถูกล้าง
 - แก้ข้อความปุ่ม/label ในหลังบ้านแล้วต้องแก้เทสต์ตามด้วย
+
+## งานดีไซน์ (skill `impeccable`)
+
+- `.claude/skills/impeccable` (v4.3.1, Apache-2.0 จาก pbakaus/impeccable) บริบทของโปรเจกต์อยู่ใน `PRODUCT.md` ที่ root (ฟอนต์ไทย, 375px, เกณฑ์ สบส., class ที่เทสต์อ้าง)
+- **ไม่รัน `scripts/impeccable`** (ตัวเปิดคำสั่งดาวน์โหลด binary จาก GitHub มารัน) ใช้ทางเลือกสำรองที่ skill รองรับ คืออ่าน PRODUCT.md ตรงๆ ไม่เปิด design hook
 
 ## แพ็กเกจที่ใช้ร่วมกัน (`packages/ui`)
 

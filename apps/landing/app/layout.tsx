@@ -47,9 +47,15 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const SKIP_PRELOADER = `try{var q=location.search,s=/[?&](utm_|gclid|fbclid|ttclid)/.test(q)||location.hash.length>1||localStorage.getItem("seen-intro");localStorage.setItem("seen-intro","1");if(s)document.documentElement.classList.add("no-intro")}catch(e){}`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="th" className={`${display.variable} ${body.variable} ${serif.variable}`}>
+    <html lang="th" className={`${display.variable} ${body.variable} ${serif.variable}`} suppressHydrationWarning>
+      <head>
+        {/* หน้าจอโหลดแสดงเฉพาะครั้งแรก ไม่แสดงกับคนที่มาจากโฆษณาหรือลิงก์ที่ชี้ไปส่วนใดส่วนหนึ่งของหน้า ตัดสินก่อนวาดหน้าแรก */}
+        <script dangerouslySetInnerHTML={{ __html: SKIP_PRELOADER }} />
+      </head>
       <body>{children}</body>
     </html>
   );

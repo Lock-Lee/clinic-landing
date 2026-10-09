@@ -30,7 +30,7 @@ const jsonLd = {
         itemListElement: packages.map((pkg) => ({
           "@type": "Offer",
           name: `แพ็กเกจ ${pkg.name}`,
-          description: pkg.features.join(", "),
+          description: [...pkg.features, ...pkg.meta.map((m) => `${m.label} ${m.value}`)].join(", "),
           price: pkg.price.replace(/,/g, ""),
           priceCurrency: "THB",
         })),
@@ -63,14 +63,14 @@ export default function Home() {
       <header className="header">
         <div className="container header-inner">
           <a href="#top" className="brand">{site.brand}</a>
+          <a href="#contact" className="btn btn-primary header-cta">ขอใบเสนอราคา</a>
           <nav className="nav" aria-label="เมนูหลัก">
-            <a href="#showcase">ผลงาน</a>
+            <a href="#showcase">ตัวอย่าง</a>
             <a href="#packages">แพ็กเกจ</a>
             <a href="#line">LINE OA</a>
             <a href="#addons">โดเมนและ MA</a>
             <a href="#process">ขั้นตอน</a>
             <a href="#faq">คำถาม</a>
-            <a href="#contact" className="btn btn-primary">ขอใบเสนอราคา</a>
           </nav>
         </div>
       </header>
@@ -100,7 +100,7 @@ export default function Home() {
                   ดูแพ็กเกจและราคา <span aria-hidden="true">↗</span>
                 </a>
                 <a href="#showcase" className="fx-pill">
-                  ดูผลงาน
+                  ดูเว็บตัวอย่าง
                 </a>
               </div>
             </div>
@@ -120,11 +120,11 @@ export default function Home() {
 
           <section id="showcase" className="container section">
             <div className="section-head">
-              <span className="fx-label">Selected Works</span>
+              <span className="fx-label">Live Demos</span>
               <h2>
-                ผลงานที่ผ่านมา <em className="fx-serif">Featured</em>
+                เว็บตัวอย่างแต่ละแพ็กเกจ <em className="fx-serif">Live</em>
               </h2>
-              <p>ตัวอย่างเว็บคลินิกที่เราออกแบบ แต่ละงานปรับโทนสีและลำดับเนื้อหาตามกลุ่มลูกค้าของคลินิกนั้น</p>
+              <p>กดเข้าไปลองใช้ได้จริงทั้งหน้าเว็บและหลังบ้าน ชื่อคลินิก แพทย์ และราคาในเว็บตัวอย่างเป็นข้อมูลสมมติ</p>
             </div>
             <Projects projects={showcase} />
           </section>
@@ -157,9 +157,22 @@ export default function Home() {
                 <a href={`${pkg.demoUrl}/admin`} target="_blank" rel="noopener" className="card-demo">
                   {pkg.name === "Starter" ? "ลองหลังบ้าน (ส่วนเสริม)" : "ลองแก้เว็บเองจากหลังบ้าน"} ↗
                 </a>
-                <ul>
+                <dl className="card-meta">
+                  {pkg.meta.map((m) => (
+                    <div key={m.label}>
+                      <dt>{m.label}</dt>
+                      <dd>{m.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <ul className="card-features">
                   {pkg.features.map((f) => (
-                    <li key={f}>{f}</li>
+                    <li key={f}>
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {f}
+                    </li>
                   ))}
                 </ul>
                 <a href="#contact" className={pkg.featured ? "btn btn-light" : "btn btn-outline"}>

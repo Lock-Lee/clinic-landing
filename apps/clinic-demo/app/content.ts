@@ -28,7 +28,7 @@ export const stats = [
 const heroImages = [
   "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80&auto=format&fit=crop",
@@ -43,7 +43,7 @@ export const hero = {
 };
 
 export const services = [
-  { name: "โบท็อกซ์", image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&auto=format&fit=crop", detail: "ลดริ้วรอย ปรับกรอบหน้า กราม และลดเหงื่อ", price: "เริ่มต้น 2,900" },
+  { name: "โบท็อกซ์", image: "https://images.unsplash.com/photo-1552693673-1bf958298935?w=900&q=80&auto=format&fit=crop", detail: "ลดริ้วรอย ปรับกรอบหน้า กราม และลดเหงื่อ", price: "เริ่มต้น 2,900" },
   { name: "ฟิลเลอร์", image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80&auto=format&fit=crop", detail: "เติมร่องลึก ปรับรูปปาก คาง และใต้ตา", price: "เริ่มต้น 6,900" },
   { name: "ร้อยไหม", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop", detail: "ยกกระชับใบหน้า ปรับรูปหน้าให้ดูเรียว", price: "เริ่มต้น 9,900" },
   { name: "สกินบูสเตอร์", image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=900&q=80&auto=format&fit=crop", detail: "ฟื้นฟูผิวให้ชุ่มชื้น ดูอิ่มน้ำ", price: "เริ่มต้น 3,900" },

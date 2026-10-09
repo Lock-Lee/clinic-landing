@@ -33,7 +33,7 @@ export const heroImages = [
   "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80&auto=format&fit=crop",
@@ -44,16 +44,14 @@ export type ShowcaseItem = {
   name: string;
   category: string;
   url: string;
-  image: string; // ภาพปก: ตอนนี้เป็นภาพ Unsplash ชั่วคราว ใส่ภาพหน้าจอเว็บจริงไว้ที่ public/showcase/ แล้วเปลี่ยนเป็น "/showcase/xxx.jpg"
+  image: string; // ภาพหน้าจอใน public/showcase/ มีผลงานลูกค้าจริงแล้วเพิ่มต่อท้ายได้
 };
 
+// ตอนนี้ยังไม่มีผลงานลูกค้าจริง ใช้เว็บตัวอย่างของแต่ละแพ็ก (ลิงก์เดียวกับ demoUrl ใน packages)
 export const showcase: ShowcaseItem[] = [
-  { name: "[ชื่อคลินิก 1]", category: "คลินิกผิวหนังและเลเซอร์ · แพ็กเกจ Standard", url: "#", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop" },
-  { name: "[ชื่อคลินิก 2]", category: "ฟิลเลอร์และโบท็อกซ์ · แพ็กเกจ Starter", url: "#", image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&auto=format&fit=crop" },
-  { name: "[ชื่อคลินิก 3]", category: "ศัลยกรรมตกแต่ง · แพ็กเกจ Premium", url: "#", image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80&auto=format&fit=crop" },
-  { name: "[ชื่อคลินิก 4]", category: "ยกกระชับและปรับรูปหน้า · แพ็กเกจ Standard", url: "#", image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=900&q=80&auto=format&fit=crop" },
-  { name: "[ชื่อคลินิก 5]", category: "คลินิกรักษาสิว · แพ็กเกจ Starter", url: "#", image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=900&q=80&auto=format&fit=crop" },
-  { name: "[ชื่อคลินิก 6]", category: "ปลูกผมและเวลเนส · แพ็กเกจ Premium", url: "#", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80&auto=format&fit=crop" },
+  { name: "Mira Skin", category: "เว็บตัวอย่างแพ็กเกจ Starter · คลินิกรักษาสิว หน้าเดียว", url: "http://localhost:3002", image: "/showcase/starter.jpg" },
+  { name: "Lumière Clinic", category: "เว็บตัวอย่างแพ็กเกจ Standard · คลินิกผิวพรรณ หน้าเดียวเต็ม + LINE OA", url: "http://localhost:3001", image: "/showcase/standard.jpg" },
+  { name: "Atelier Belle Clinic", category: "เว็บตัวอย่างแพ็กเกจ Premium · ศัลยกรรมและผิวพรรณ หลายหน้า", url: "http://localhost:3003", image: "/showcase/premium.jpg" },
 ];
 
 // demoUrl: ลิงก์เว็บตัวอย่างของแต่ละแพ็ก ตอนนี้ชี้ไปที่ dev server ในเครื่อง deploy เดโมแล้วต้องเปลี่ยนเป็นโดเมนจริง
@@ -73,9 +71,11 @@ export const packages = [
       "รองรับมือถือ",
       "SEO พื้นฐาน: title, description, sitemap, Google Search Console",
       "ส่งให้เราแก้เนื้อหา หรือเพิ่มหลังบ้านให้แก้ข้อความ รูป และราคาเองได้ +3,900 บาท",
-      "แก้ไขงาน 2 รอบ",
-      "ส่งงานใน 5-7 วัน",
-      "ดูแลฟรี 1 เดือน",
+    ],
+    meta: [
+      { label: "ส่งงาน", value: "5-7 วัน" },
+      { label: "แก้ไขงาน", value: "2 รอบ" },
+      { label: "ดูแลฟรี", value: "1 เดือน" },
     ],
   },
   {
@@ -94,9 +94,11 @@ export const packages = [
       "แก้ข้อความ เปลี่ยนรูป เพิ่มโปรโมชันและรีวิวเองได้จากมือถือ ไม่ต้องรอเรา",
       "ติด Pixel และ GA4",
       "SEO + AEO: FAQ และ Schema ให้ Google และ AI ดึงไปตอบได้",
-      "แก้ไขงาน 3 รอบ",
-      "ส่งงานใน 10-14 วัน",
-      "ดูแลฟรี 2 เดือน",
+    ],
+    meta: [
+      { label: "ส่งงาน", value: "10-14 วัน" },
+      { label: "แก้ไขงาน", value: "3 รอบ" },
+      { label: "ดูแลฟรี", value: "2 เดือน" },
     ],
   },
   {
@@ -114,9 +116,11 @@ export const packages = [
       "จองคิวในแอป LINE ยืนยันและเตือนนัดอัตโนมัติ",
       "SEO + AEO รายหน้า Schema คลินิก แพทย์ และบริการ",
       "ปรับความเร็ว รองรับ 2 ภาษา",
-      "แก้ไขงาน 5 รอบ",
-      "ส่งงานใน 21-30 วัน",
-      "ดูแลฟรี 3 เดือน",
+    ],
+    meta: [
+      { label: "ส่งงาน", value: "21-30 วัน" },
+      { label: "แก้ไขงาน", value: "5 รอบ" },
+      { label: "ดูแลฟรี", value: "3 เดือน" },
     ],
   },
 ];
