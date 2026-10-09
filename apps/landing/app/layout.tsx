@@ -26,9 +26,9 @@ const serif = Instrument_Serif({
   display: "swap",
 });
 
-const title = "รับทำเว็บไซต์และ Landing Page คลินิกความงาม | เริ่มต้น 12,000 บาท";
+const title = "รับทำเว็บไซต์และ Landing Page ทุกธุรกิจ | เริ่มต้น 12,000 บาท";
 const description =
-  "รับออกแบบเว็บไซต์และ Landing Page สำหรับคลินิกเสริมความงาม 3 แพ็กเกจ พร้อม SEO, AEO, ระบบหลังบ้าน โดเมน โฮสติ้ง และดูแลเว็บรายเดือน";
+  "รับออกแบบเว็บไซต์และ Landing Page สำหรับร้านค้า คลินิก ร้านอาหาร และบริษัท 3 แพ็กเกจ พร้อม SEO, AEO, ระบบหลังบ้าน โดเมน โฮสติ้ง และดูแลเว็บรายเดือน";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

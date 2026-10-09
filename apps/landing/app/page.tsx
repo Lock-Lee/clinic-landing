@@ -23,10 +23,10 @@ const jsonLd = {
       email: site.email,
       telephone: site.phone,
       areaServed: "TH",
-      description: "รับออกแบบเว็บไซต์และ Landing Page สำหรับคลินิกเสริมความงาม",
+      description: "รับออกแบบเว็บไซต์และ Landing Page สำหรับธุรกิจทุกประเภท",
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "แพ็กเกจทำเว็บคลินิกความงาม",
+        name: "แพ็กเกจทำเว็บไซต์",
         itemListElement: packages.map((pkg) => ({
           "@type": "Offer",
           name: `แพ็กเกจ ${pkg.name}`,
@@ -87,7 +87,7 @@ export default function Home() {
               </p>
             </div>
             <div className="fx-hero-main">
-              <p className="fx-hero-eyebrow">Crafted for beauty clinics</p>
+              <p className="fx-hero-eyebrow">Crafted for every business</p>
               <h1 className="fx-hero-title">
                 <SplitWords text={hero.titleLines[0]} />
                 <br />
@@ -124,7 +124,7 @@ export default function Home() {
               <h2>
                 เว็บตัวอย่างแต่ละแพ็กเกจ <em className="fx-serif">Live</em>
               </h2>
-              <p>กดเข้าไปลองใช้ได้จริงทั้งหน้าเว็บและหลังบ้าน ชื่อคลินิก แพทย์ และราคาในเว็บตัวอย่างเป็นข้อมูลสมมติ</p>
+              <p>กดเข้าไปลองใช้ได้จริงทั้งหน้าเว็บและหลังบ้าน เว็บตัวอย่างเป็นธุรกิจคลินิก ชื่อ บุคคล และราคาเป็นข้อมูลสมมติ ทำแบบเดียวกันให้ธุรกิจอื่นได้</p>
             </div>
             <Projects projects={showcase} />
           </section>
@@ -191,8 +191,8 @@ export default function Home() {
         <section id="line" className="container section line-section">
           <div className="line-copy">
             <div className="section-head">
-              <h2>เชื่อมเว็บกับ LINE OA ของคลินิก</h2>
-              <p>ลูกค้าคลินิกส่วนใหญ่จองคิวผ่าน LINE เราตั้งค่า LINE OA และ Rich Menu ให้เข้ากับเว็บ ลองกดเมนูในโทรศัพท์ด้านข้างดูได้เลย</p>
+              <h2>เชื่อมเว็บกับ LINE OA ของร้าน</h2>
+              <p>ลูกค้าคนไทยส่วนใหญ่ทักร้านผ่าน LINE เราตั้งค่า LINE OA และ Rich Menu ให้เข้ากับเว็บ ลองกดเมนูในโทรศัพท์ด้านข้างดูได้เลย</p>
             </div>
             <dl className="rows">
               {lineTiers.map((t) => (
@@ -212,7 +212,7 @@ export default function Home() {
               </div>
             </dl>
             <p className="muted small">
-              บัญชี LINE OA เป็นชื่อคลินิก เราเป็นแอดมินร่วม ค่าส่งข้อความเกินโควตาฟรีคลินิกจ่ายกับ LINE โดยตรง
+              บัญชี LINE OA เป็นชื่อธุรกิจของคุณ เราเป็นแอดมินร่วม ค่าส่งข้อความเกินโควตาฟรีเจ้าของร้านจ่ายกับ LINE โดยตรง
             </p>
           </div>
           <LineChatMock {...lineDemo} />
@@ -222,7 +222,7 @@ export default function Home() {
           <div className="container section grid grid-2">
             <div className="addon">
               <h2>โดเมนและโฮสติ้ง</h2>
-              <p className="muted">คิดตามราคาจริงของผู้ให้บริการ จดในชื่อคลินิกของคุณเอง ย้ายออกได้ทุกเมื่อ</p>
+              <p className="muted">คิดตามราคาจริงของผู้ให้บริการ จดในชื่อธุรกิจของคุณเอง ย้ายออกได้ทุกเมื่อ</p>
               <dl className="rows">
                 {domainRows.map((row) => (
                   <div key={row.label}>
@@ -263,8 +263,8 @@ export default function Home() {
             }))}
           />
           <p className="muted small note">
-            เนื้อหาโฆษณาและภาพรีวิวต้องเป็นไปตามเกณฑ์ของกรมสนับสนุนบริการสุขภาพ (สบส.)
-            คลินิกเป็นผู้รับผิดชอบการขออนุมัติโฆษณา
+            ธุรกิจที่มีกฎโฆษณาเฉพาะ เช่น คลินิก (สบส.) อาหารและเครื่องสำอาง (อย.)
+            เจ้าของธุรกิจเป็นผู้รับผิดชอบการขออนุมัติโฆษณา เราช่วยจัดเนื้อหาให้เหมาะสม
           </p>
         </section>
 
@@ -272,7 +272,7 @@ export default function Home() {
           <div className="container section">
             <div className="section-head">
               <h2>คำถามที่พบบ่อย</h2>
-              <p>รวมคำถามที่คลินิกถามบ่อยก่อนเริ่มทำเว็บ</p>
+              <p>รวมคำถามที่ลูกค้าถามบ่อยก่อนเริ่มทำเว็บ</p>
             </div>
             <div className="faq-list">
               {faqs.map((f) => (
@@ -289,7 +289,7 @@ export default function Home() {
           <div className="container contact-inner">
             <div>
               <h2>ปรึกษาฟรี รับใบเสนอราคาใน 1 วัน</h2>
-              <p>บอกชื่อคลินิกและแพ็กเกจที่สนใจ เราจะส่งรายละเอียดกลับทาง LINE</p>
+              <p>บอกชื่อธุรกิจและแพ็กเกจที่สนใจ เราจะส่งรายละเอียดกลับทาง LINE</p>
             </div>
             <div className="contact-actions">
               <a href={site.lineUrl} className="btn btn-light">LINE: {site.lineId}</a>
