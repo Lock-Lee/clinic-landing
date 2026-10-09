@@ -1,37 +1,44 @@
+import { getContent } from "@repo/db";
+import { AdminFab } from "@repo/ui/admin";
 import { Motion } from "@repo/ui/motion";
 import { AnimatedMarqueeHero } from "@/components/ui/hero-3";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { BorderBeam } from "@/components/ui/border-beam";
-import { clinic, stats, heroImages, services, promotions, reasons, doctors, reviews, faqs } from "./content";
+import { SITE_ID, editableDefaults, stats, reasons, doctors, faqs } from "./content";
+
+// อ่านเนื้อหาล่าสุดจาก DB ทุกครั้ง แก้ใน /admin แล้วเห็นผลทันที
+export const dynamic = "force-dynamic";
 
 // บริการ 6 รายการ: กว้าง 2-1 / 1-2 / 2-1 บนจอใหญ่
 const BENTO_SPAN = ["md:col-span-2", "", "", "md:col-span-2", "md:col-span-2", ""];
 
 const REVEAL_SELECTOR = [".section-head", ".grid > *", ".faq-list > *", ".contact-grid > *"].join(",");
 
-// Schema.org ของคลินิก + คำถามที่พบบ่อย (SEO / AEO)
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "MedicalClinic",
-      "@id": `${clinic.url}/#clinic`,
-      name: clinic.name,
-      url: clinic.url,
-      telephone: clinic.phone,
-      address: { "@type": "PostalAddress", streetAddress: clinic.address, addressCountry: "TH" },
-      openingHours: "Mo-Su 11:00-20:00",
-      availableService: services.map((s) => ({ "@type": "MedicalProcedure", name: s.name, description: s.detail })),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-    },
-  ],
-};
+export default async function Home() {
+  const { clinic, hero, services, promotions, reviews } = await getContent(SITE_ID, editableDefaults);
 
-export default function Home() {
+  // Schema.org ของคลินิก + คำถามที่พบบ่อย (SEO / AEO)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalClinic",
+        "@id": `${clinic.url}/#clinic`,
+        name: clinic.name,
+        url: clinic.url,
+        telephone: clinic.phone,
+        address: { "@type": "PostalAddress", streetAddress: clinic.address, addressCountry: "TH" },
+        openingHours: "Mo-Su 11:00-20:00",
+        availableService: services.map((s) => ({ "@type": "MedicalProcedure", name: s.name, description: s.detail })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -63,16 +70,16 @@ export default function Home() {
             tagline={clinic.tagline}
             title={
               <>
-                ผิวสวยแบบเป็นธรรมชาติ
+                {hero.titleLine1}
                 <br />
-                <span className="text-primary">ในแบบที่เป็นคุณ</span>
+                <span className="text-primary">{hero.titleLine2}</span>
               </>
             }
-            description="ปรึกษาแพทย์ฟรี วางแผนการดูแลให้เหมาะกับผิวและงบของคุณ ทุกหัตถการทำโดยแพทย์ที่มีใบอนุญาต"
+            description={hero.description}
             ctaText="จองคิวผ่าน LINE"
             ctaHref={clinic.lineUrl}
             secondary={{ text: "ดูโปรโมชันเดือนนี้", href: "#promotions" }}
-            images={heroImages}
+            images={hero.images}
           />
         </div>
 
@@ -98,7 +105,7 @@ export default function Home() {
           <BentoGrid>
             {services.map((s, i) => (
               <BentoGridItem
-                key={s.name}
+                key={i}
                 className={BENTO_SPAN[i % BENTO_SPAN.length]}
                 header={
                   <div className="relative min-h-32 flex-1 overflow-hidden rounded-lg">
@@ -123,9 +130,9 @@ export default function Home() {
             <h2>ราคาพิเศษ จำนวนจำกัด</h2>
           </div>
           <div className="grid grid-3">
-            {promotions.map((p) => (
-              <article key={p.name} className="promo relative">
-                <BorderBeam size={90} duration={9} delay={promotions.indexOf(p) * 3} />
+            {promotions.map((p, i) => (
+              <article key={i} className="promo relative">
+                <BorderBeam size={90} duration={9} delay={i * 3} />
                 <h3>{p.name}</h3>
                 <p className="promo-price">
                   <s>{p.before}</s> <strong>{p.now}</strong> บาท
@@ -181,8 +188,8 @@ export default function Home() {
               <h2>รีวิวจากผู้ใช้บริการจริง</h2>
             </div>
             <div className="grid grid-3">
-              {reviews.map((r) => (
-                <figure key={r.name} className="review">
+              {reviews.map((r, i) => (
+                <figure key={i} className="review">
                   <blockquote>“{r.text}”</blockquote>
                   <figcaption>
                     <strong>{r.name}</strong> · <span className="muted">{r.service}</span>
@@ -239,6 +246,7 @@ export default function Home() {
       <a href={clinic.lineUrl} className="line-float" aria-label="จองคิวผ่าน LINE">
         LINE
       </a>
+      <AdminFab />
     </>
   );
 }

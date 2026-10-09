@@ -24,8 +24,8 @@ export const stats = [
   { value: 4.9, suffix: "", decimals: 1, label: "คะแนนรีวิว" },
 ];
 
-// ภาพแถบเลื่อนใน hero และภาพบริการ (Unsplash ชั่วคราว) ทำเดโมจริงให้เปลี่ยนเป็นภาพคลินิก
-export const heroImages = [
+// ข้อความ hero (บรรทัดที่ 2 เป็นสีเน้น) + ภาพแถบเลื่อน และภาพบริการ (Unsplash ชั่วคราว) ทำเดโมจริงให้เปลี่ยนเป็นภาพคลินิก
+const heroImages = [
   "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80&auto=format&fit=crop",
@@ -34,6 +34,13 @@ export const heroImages = [
   "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80&auto=format&fit=crop",
 ];
+
+export const hero = {
+  titleLine1: "ผิวสวยแบบเป็นธรรมชาติ",
+  titleLine2: "ในแบบที่เป็นคุณ",
+  description: "ปรึกษาแพทย์ฟรี วางแผนการดูแลให้เหมาะกับผิวและงบของคุณ ทุกหัตถการทำโดยแพทย์ที่มีใบอนุญาต",
+  images: heroImages,
+};
 
 export const services = [
   { name: "โบท็อกซ์", image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&auto=format&fit=crop", detail: "ลดริ้วรอย ปรับกรอบหน้า กราม และลดเหงื่อ", price: "เริ่มต้น 2,900" },
@@ -76,19 +83,28 @@ export const faqs = [
   { q: "มีที่จอดรถไหม?", a: "มีที่จอดรถหน้าคลินิก 6 คัน และจอดที่อาคารข้างเคียงได้" },
 ];
 
-// หน้า /line: ตัวอย่างแชท LINE OA + Rich Menu ของคลินิกนี้
-export const lineOa = {
-  name: clinic.name,
-  avatar: "LC",
-  greeting: [
-    { text: `สวัสดีค่ะ ยินดีต้อนรับสู่ ${clinic.nameTh}\nปรึกษาแพทย์ฟรี กดเมนูด้านล่างเพื่อจองคิวหรือดูโปรได้เลยค่ะ` },
-  ],
-  menu: [
-    { label: "จองคิว", icon: "calendar", reply: [{ card: { title: "จองคิวออนไลน์", lines: ["เลือกบริการ วัน และเวลา", clinic.hours], button: "เลือกวันเวลา" } }] },
-    { label: "โปรโมชัน", icon: "tag", reply: [{ card: { title: "โปรเดือนนี้", lines: promotions.map((p) => `${p.name} ${p.now}.-`), button: "จองโปรนี้" } }] },
-    { label: "บริการ", icon: "list", reply: [{ text: "บริการของเรา\n" + services.map((s) => `• ${s.name} ${s.price}.-`).join("\n") }] },
-    { label: "รีวิว", icon: "star", reply: reviews.slice(0, 1).map((r) => ({ text: `“${r.text}”\n— ${r.name}, ${r.service}` })) },
-    { label: "แผนที่", icon: "pin", reply: [{ card: { title: clinic.nameTh, lines: [clinic.address, clinic.hours], button: "เปิด Google Maps" } }] },
-    { label: "คุยกับแอดมิน", icon: "chat", reply: [{ text: "แอดมินจะตอบกลับภายใน 5 นาทีในเวลาทำการค่ะ พิมพ์คำถามไว้ได้เลย" }] },
-  ],
-} satisfies { name: string; avatar: string; greeting: LineReply[]; menu: RichMenuItem[] };
+// หน้า /line: ตัวอย่างแชท LINE OA + Rich Menu ของคลินิกนี้ สร้างจากเนื้อหาล่าสุด (รวมที่แก้จากหลังบ้าน)
+export function buildLineOa({ clinic, services, promotions, reviews }: Pick<EditableContent, "clinic" | "services" | "promotions" | "reviews">) {
+  return {
+    name: clinic.name,
+    avatar: "LC",
+    greeting: [
+      { text: `สวัสดีค่ะ ยินดีต้อนรับสู่ ${clinic.nameTh}\nปรึกษาแพทย์ฟรี กดเมนูด้านล่างเพื่อจองคิวหรือดูโปรได้เลยค่ะ` },
+    ],
+    menu: [
+      { label: "จองคิว", icon: "calendar", reply: [{ card: { title: "จองคิวออนไลน์", lines: ["เลือกบริการ วัน และเวลา", clinic.hours], button: "เลือกวันเวลา" } }] },
+      { label: "โปรโมชัน", icon: "tag", reply: [{ card: { title: "โปรเดือนนี้", lines: promotions.map((p) => `${p.name} ${p.now}.-`), button: "จองโปรนี้" } }] },
+      { label: "บริการ", icon: "list", reply: [{ text: "บริการของเรา\n" + services.map((s) => `• ${s.name} ${s.price}.-`).join("\n") }] },
+      { label: "รีวิว", icon: "star", reply: reviews.slice(0, 1).map((r) => ({ text: `“${r.text}”\n— ${r.name}, ${r.service}` })) },
+      { label: "แผนที่", icon: "pin", reply: [{ card: { title: clinic.nameTh, lines: [clinic.address, clinic.hours], button: "เปิด Google Maps" } }] },
+      { label: "คุยกับแอดมิน", icon: "chat", reply: [{ text: "แอดมินจะตอบกลับภายใน 5 นาทีในเวลาทำการค่ะ พิมพ์คำถามไว้ได้เลย" }] },
+    ],
+  } satisfies { name: string; avatar: string; greeting: LineReply[]; menu: RichMenuItem[] };
+}
+
+// ส่วนที่แก้ได้จากหลังบ้าน (/admin) แพ็ก Standard: ข้อมูลคลินิก หน้าแรก บริการ โปรโมชัน และรีวิว
+// ค่าที่แก้เก็บใน Postgres ตาราง site_content แถว "standard" (packages/db) แพทย์ FAQ ตัวเลข คงที่
+// เว็บคลินิกจริงที่ใช้แม่แบบนี้ ตั้ง CLINIC_ID ตอน deploy ให้ตรงกับรหัสคลินิกใน admin กลาง
+export const SITE_ID = process.env.CLINIC_ID ?? "standard";
+export const editableDefaults = { clinic, hero, services, promotions, reviews };
+export type EditableContent = typeof editableDefaults;

@@ -1,3 +1,5 @@
+@import "@repo/ui/admin.css";
+
 /* โทนขาว-แดงไวน์ เปลี่ยนสีที่นี่ */
 :root {
   --ground: #fcfafa;
@@ -48,3 +50,19 @@
 .contact-aside { display: flex; flex-direction: column; gap: 10px; }
 .contact-aside h2 { font-size: 24px; }
 @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* หลังบ้าน: ไม่ใช้ฟอนต์หัวข้อของเว็บ */
+.adm h1, .adm h2, .adm h3 { font-family: inherit; }
+
+/* รูปที่อัปโหลดจากหลังบ้าน (แทน Placeholder) */
+.hero-image { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+.cover { width: 100%; object-fit: cover; border-radius: var(--radius); }
+
+/* ลิงก์ #anchor จากเมนูย่อย ไม่ให้ header ติดบนบังหัวข้อ */
+section[id] { scroll-margin-top: 88px; }
+
+/* รูปในเนื้อหาบทความ (อัปโหลดจากหลังบ้าน) */
+.article-figure { margin: 6px 0; display: flex; flex-direction: column; gap: 8px; }
+.article-figure img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: var(--radius); background: var(--line); }
+.article-figure figcaption { font-size: 14px; color: var(--muted); text-align: center; }
+.article-text { white-space: pre-line; overflow-wrap: anywhere; }

@@ -8,7 +8,9 @@
     "./line-chat": "./src/line-chat.tsx",
     "./line-chat.css": "./src/line-chat.css",
     "./site": "./src/site/index.ts",
-    "./site.css": "./src/site/site.css"
+    "./site.css": "./src/site/site.css",
+    "./admin": "./src/admin/index.ts",
+    "./admin.css": "./src/admin/admin.css"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

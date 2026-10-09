@@ -1,0 +1,60 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "landing",
+      "runtimeExecutable": "bunx",
+      "runtimeArgs": [
+        "turbo",
+        "run",
+        "dev",
+        "--filter=landing"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "starter",
+      "runtimeExecutable": "bunx",
+      "runtimeArgs": [
+        "turbo",
+        "run",
+        "dev",
+        "--filter=clinic-starter-demo"
+      ],
+      "port": 3002
+    },
+    {
+      "name": "standard",
+      "runtimeExecutable": "bunx",
+      "runtimeArgs": [
+        "turbo",
+        "run",
+        "dev",
+        "--filter=clinic-demo"
+      ],
+      "port": 3001
+    },
+    {
+      "name": "premium",
+      "runtimeExecutable": "bunx",
+      "runtimeArgs": [
+        "turbo",
+        "run",
+        "dev",
+        "--filter=clinic-full-demo"
+      ],
+      "port": 3003
+    },
+    {
+      "name": "admin",
+      "runtimeExecutable": "bunx",
+      "runtimeArgs": [
+        "turbo",
+        "run",
+        "dev",
+        "--filter=admin"
+      ],
+      "port": 3010
+    }
+  ]
+}

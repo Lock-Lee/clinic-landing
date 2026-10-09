@@ -1,3 +1,5 @@
+import type { NavLink } from "@repo/ui/site";
+
 // เว็บคลินิกเต็มรูปแบบตัวอย่าง (ศัลยกรรม + ผิวพรรณ หลายหน้า) ทุกชื่อ ราคา รีวิว เป็นข้อมูลสมมติ
 // เนื้อหาเป็นข้อมูลทั่วไป ใช้เป็นโครงเท่านั้น เวลาทำเว็บจริงต้องให้แพทย์ตรวจและให้คลินิกขออนุมัติโฆษณากับ สบส.
 
@@ -14,13 +16,42 @@ export const clinic = {
   license: "ใบอนุญาตประกอบกิจการสถานพยาบาล เลขที่ 00000000000",
 };
 
-export const nav = [
+// เมนูหลัก แก้ได้จากหลังบ้าน children = เมนูย่อย (ลึกได้ชั้นเดียว)
+export const nav: NavLink[] = [
   { href: "/", label: "หน้าแรก" },
-  { href: "/about", label: "เกี่ยวกับเรา" },
-  { href: "/services", label: "บริการ" },
+  {
+    href: "/about",
+    label: "เกี่ยวกับเรา",
+    children: [
+      { href: "/about", label: "เกี่ยวกับคลินิก" },
+      { href: "/about#doctors", label: "ทีมแพทย์" },
+      { href: "/reviews", label: "รีวิวจากผู้ใช้บริการ" },
+    ],
+  },
+  {
+    href: "/services",
+    label: "บริการ",
+    children: [
+      { href: "/services#surgery", label: "ศัลยกรรมทั้งหมด" },
+      { href: "/services#skin", label: "ผิวพรรณและหัตถการทั้งหมด" },
+      { href: "/services/rhinoplasty", label: "ศัลยกรรมจมูก" },
+      { href: "/services/eyelid", label: "ศัลยกรรมตาสองชั้น" },
+      { href: "/services/thread-lift", label: "ร้อยไหม" },
+      { href: "/services/botulinum", label: "โบทูลินัมท็อกซิน" },
+      { href: "/services/filler", label: "ฟิลเลอร์" },
+    ],
+  },
   { href: "/promotions", label: "โปรโมชัน" },
   { href: "/reviews", label: "รีวิว" },
-  { href: "/articles", label: "บทความ" },
+  {
+    href: "/articles",
+    label: "บทความ",
+    children: [
+      { href: "/articles", label: "บทความทั้งหมด" },
+      { href: "/articles/consult-before-surgery", label: "ปรึกษาศัลยกรรมครั้งแรก" },
+      { href: "/articles/botulinum-authentic", label: "เช็กโบทูลินัมของแท้" },
+    ],
+  },
 ];
 
 export const groups = [
@@ -39,6 +70,7 @@ export type Service = {
   recovery: string;
   priceFrom: string;
   faqs: { q: string; a: string }[];
+  image?: string;
 };
 
 const consultFaq = { q: "ต้องปรึกษาแพทย์ก่อนไหม?", a: "ต้องปรึกษาและประเมินกับแพทย์ก่อนทุกครั้ง ปรึกษาฟรีไม่มีข้อผูกมัด" };
@@ -145,6 +177,12 @@ export const services: Service[] = [
   },
 ];
 
+export const hero = {
+  title: "ความงามในอุดมคติ ที่ออกแบบเฉพาะคุณ",
+  lead: "เราเชื่อว่าลูกค้าทุกคนคือผลงานชิ้นเดียว แพทย์ประเมิน วางแผน และดูแลตั้งแต่วันปรึกษาจนถึงวันติดตามผล",
+  image: "",
+};
+
 export const doctors = [
   { name: "พญ. ตัวอย่าง หนึ่ง", role: "ศัลยแพทย์ตกแต่ง", license: "ว.00010" },
   { name: "นพ. ตัวอย่าง สอง", role: "แพทย์ผิวหนัง", license: "ว.00011" },
@@ -167,7 +205,24 @@ export const reviews = [
   { name: "คุณ F.", service: "ร้อยไหม", text: "หมออธิบายว่าเคสเราเหมาะกับร้อยไหมแบบไหนและอยู่ได้นานประมาณเท่าไร" },
 ];
 
-export type Article = { slug: string; title: string; date: string; category: string; excerpt: string; body: string[] };
+// เนื้อหาบทความเป็นบล็อกเรียงต่อกัน: ย่อหน้า หัวข้อย่อย หรือรูป (อัปโหลดจากหลังบ้านได้ทุกบทความ)
+export type ArticleBlock =
+  | { type: "text"; text: string }
+  | { type: "heading"; text: string }
+  | { type: "image"; src: string; caption?: string; alt?: string };
+
+// body เป็นรูปแบบเก่า (ย่อหน้าทีละบรรทัด) เก็บไว้อ่านข้อมูลที่บันทึกก่อนเปลี่ยนเป็น blocks
+export type Article = { slug: string; title: string; date: string; category: string; excerpt: string; blocks: ArticleBlock[]; body?: string[]; image?: string };
+
+// แปลงบทความให้เป็น blocks เสมอ ข้อมูลเก่าที่ยังเป็น body: string[] ก็แสดงได้ไม่พัง
+export function articleBlocks(a: Partial<Article>): ArticleBlock[] {
+  if (Array.isArray(a.blocks)) return a.blocks.filter((b): b is ArticleBlock => !!b && typeof b === "object" && "type" in b);
+  if (Array.isArray(a.body)) return a.body.filter((p) => typeof p === "string").map((text) => ({ type: "text", text }));
+  return [];
+}
+
+const p = (text: string): ArticleBlock => ({ type: "text", text });
+
 
 export const articles: Article[] = [
   {
@@ -176,10 +231,17 @@ export const articles: Article[] = [
     date: "2026-09-20",
     category: "ศัลยกรรม",
     excerpt: "รวมคำถามที่ควรเตรียมไปก่อนพบแพทย์ เพื่อให้ได้แผนที่เหมาะกับตัวเอง",
-    body: [
-      "การปรึกษาครั้งแรกคือโอกาสที่ดีที่สุดในการเข้าใจว่าการผ่าตัดเหมาะกับเราหรือไม่",
-      "ควรถามถึงเทคนิคที่แพทย์แนะนำ ข้อจำกัด ระยะพักฟื้น และสิ่งที่ต้องเตรียมก่อนผ่าตัด",
-      "แพทย์ที่ดีจะบอกทั้งสิ่งที่ทำได้และสิ่งที่ไม่แนะนำให้ทำ",
+    blocks: [
+      p("การปรึกษาครั้งแรกคือโอกาสที่ดีที่สุดในการเข้าใจว่าการผ่าตัดเหมาะกับเราหรือไม่"),
+      { type: "heading", text: "คำถามที่ควรเตรียมไป" },
+      p("ควรถามถึงเทคนิคที่แพทย์แนะนำ ข้อจำกัด ระยะพักฟื้น และสิ่งที่ต้องเตรียมก่อนผ่าตัด"),
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=70",
+        alt: "แพทย์กำลังอธิบายแผนการรักษาให้ผู้รับบริการฟัง",
+        caption: "จดคำถามไว้ล่วงหน้า จะได้ไม่ลืมถามเรื่องสำคัญระหว่างปรึกษา",
+      },
+      p("แพทย์ที่ดีจะบอกทั้งสิ่งที่ทำได้และสิ่งที่ไม่แนะนำให้ทำ"),
     ],
   },
   {
@@ -188,9 +250,9 @@ export const articles: Article[] = [
     date: "2026-09-12",
     category: "ผิวพรรณ",
     excerpt: "ดูเลขทะเบียน อย. และขั้นตอนเปิดกล่องที่คลินิกควรทำต่อหน้าคุณ",
-    body: [
-      "ผลิตภัณฑ์ที่ใช้ในคลินิกต้องมีเลขทะเบียน อย. ที่ตรวจสอบได้",
-      "ขอให้คลินิกเปิดกล่องและแสดงฉลากต่อหน้าก่อนฉีดทุกครั้ง",
+    blocks: [
+      p("ผลิตภัณฑ์ที่ใช้ในคลินิกต้องมีเลขทะเบียน อย. ที่ตรวจสอบได้"),
+      p("ขอให้คลินิกเปิดกล่องและแสดงฉลากต่อหน้าก่อนฉีดทุกครั้ง"),
     ],
   },
   {
@@ -199,9 +261,9 @@ export const articles: Article[] = [
     date: "2026-09-04",
     category: "ความรู้",
     excerpt: "เข้าใจการเปลี่ยนแปลงของกระดูก ไขมัน และผิว เพื่อเลือกการดูแลที่ตรงจุด",
-    body: [
-      "เมื่ออายุมากขึ้น กระดูก ไขมัน และผิวหนังเปลี่ยนแปลงไปพร้อมกัน",
-      "การประเมินโดยแพทย์ช่วยให้เลือกวิธีที่ตรงกับสาเหตุ แทนการแก้ที่ปลายเหตุ",
+    blocks: [
+      p("เมื่ออายุมากขึ้น กระดูก ไขมัน และผิวหนังเปลี่ยนแปลงไปพร้อมกัน"),
+      p("การประเมินโดยแพทย์ช่วยให้เลือกวิธีที่ตรงกับสาเหตุ แทนการแก้ที่ปลายเหตุ"),
     ],
   },
   {
@@ -210,9 +272,9 @@ export const articles: Article[] = [
     date: "2026-08-28",
     category: "ผิวพรรณ",
     excerpt: "ข้อควรปฏิบัติช่วงสัปดาห์แรกหลังร้อยไหม",
-    body: [
-      "ช่วงแรกควรหลีกเลี่ยงการนวดหน้าและการอ้าปากกว้างมาก",
-      "ปฏิบัติตามคำแนะนำของแพทย์ และมาตามนัดติดตามผล",
+    blocks: [
+      p("ช่วงแรกควรหลีกเลี่ยงการนวดหน้าและการอ้าปากกว้างมาก"),
+      p("ปฏิบัติตามคำแนะนำของแพทย์ และมาตามนัดติดตามผล"),
     ],
   },
 ];
@@ -222,3 +284,10 @@ export const homeFaqs = [
   { q: "ปรึกษาแพทย์มีค่าใช้จ่ายไหม?", a: "ปรึกษาฟรี ไม่มีข้อผูกมัด" },
   { q: "รองรับลูกค้าต่างชาติไหม?", a: "รองรับ มีเจ้าหน้าที่สื่อสารภาษาอังกฤษและจีน" },
 ];
+
+// ส่วนที่แก้ได้จากหลังบ้าน (/admin) แพ็ก Premium: ข้อมูลคลินิก หน้าแรก เมนู บริการ (เพิ่ม/ลบหน้าได้) บทความ โปรโมชัน รีวิว
+// ค่าที่แก้เก็บใน Postgres ตาราง site_content แถว "premium" (packages/db)
+// เว็บคลินิกจริงที่ใช้แม่แบบนี้ ตั้ง CLINIC_ID ตอน deploy ให้ตรงกับรหัสคลินิกใน admin กลาง
+export const SITE_ID = process.env.CLINIC_ID ?? "premium";
+export const editableDefaults = { clinic, hero, nav, services, articles, promotions, reviews };
+export type EditableContent = typeof editableDefaults;

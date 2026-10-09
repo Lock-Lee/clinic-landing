@@ -1,0 +1,13 @@
+{
+  "identities": [
+    {
+      "name": "clinic-app",
+      "credentials": [{ "accessKey": "clinic", "secretKey": "clinic-s3-dev" }],
+      "actions": ["Admin", "Read", "Write", "List", "Tagging"]
+    },
+    {
+      "name": "anonymous",
+      "actions": ["Read:clinic-media"]
+    }
+  ]
+}

@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { getContent } from "@repo/db";
 import { LineChatMock } from "@repo/ui/line-chat";
-import { clinic, lineOa } from "../content";
+import { SITE_ID, buildLineOa, editableDefaults } from "../content";
 
-export const metadata: Metadata = { title: `LINE OA | ${clinic.name}` };
+// เมนูแชทดึงโปร บริการ รีวิว ล่าสุดจาก DB
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { clinic } = await getContent(SITE_ID, editableDefaults);
+  return { title: `LINE OA | ${clinic.name}` };
+}
 
 const features = [
   { title: "ข้อความต้อนรับ", detail: "ทักทายทันทีที่ลูกค้าเพิ่มเพื่อน พร้อมบอกว่ากดเมนูไหนทำอะไรได้" },
@@ -11,7 +18,9 @@ const features = [
   { title: "แจ้งเตือนการจอง", detail: "ลูกค้าจองจากเว็บหรือใน LINE ทีมงานคลินิกได้แจ้งเตือนเข้า LINE ทันที" },
 ];
 
-export default function LinePage() {
+export default async function LinePage() {
+  const content = await getContent(SITE_ID, editableDefaults);
+  const { clinic } = content;
   return (
     <>
       <div className="demo-bar">เว็บไซต์ตัวอย่าง ชื่อคลินิก แพทย์ รีวิว และราคาทั้งหมดเป็นข้อมูลสมมติ</div>
@@ -43,7 +52,7 @@ export default function LinePage() {
             ))}
           </div>
         </div>
-        <LineChatMock {...lineOa} />
+        <LineChatMock {...buildLineOa(content)} />
       </main>
     </>
   );

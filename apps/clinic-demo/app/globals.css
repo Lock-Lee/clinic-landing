@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@repo/ui/admin.css" layer(base);
 @import "@repo/ui/motion.css" layer(base);
 @import "@repo/ui/line-chat.css" layer(base);
 

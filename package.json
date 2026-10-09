@@ -4,18 +4,24 @@
   "packageManager": "bun@1.4.0",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "e2e"
   ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
+    "test:e2e": "cd e2e && bunx playwright test",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:seed": "bun packages/db/seed.ts",
+    "clinic:new": "bun packages/db/scripts/new-clinic.ts",
     "dev:landing": "turbo run dev --filter=landing",
-    "dev:demo": "turbo run dev --filter=clinic-demo",
-    "dev:agency": "turbo run dev --filter=agency-demo",
-    "dev:full": "turbo run dev --filter=clinic-full-demo",
-    "dev:branch": "turbo run dev --filter=clinic-branch-demo"
+    "dev:starter": "turbo run dev --filter=clinic-starter-demo",
+    "dev:standard": "turbo run dev --filter=clinic-demo",
+    "dev:premium": "turbo run dev --filter=clinic-full-demo",
+    "dev:admin": "turbo run dev --filter=admin"
   },
   "devDependencies": {
     "turbo": "^2.11.7"

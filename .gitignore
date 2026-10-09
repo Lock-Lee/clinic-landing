@@ -5,3 +5,8 @@ next-env.d.ts
 *.tsbuildinfo
 .turbo
 .DS_Store
+.env
+.env.local
+test-results
+playwright-report
+.onboarding

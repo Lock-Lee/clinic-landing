@@ -2,6 +2,10 @@
   "name": "clinic-full-demo",
   "version": "1.0.0",
   "private": true,
+  "exports": {
+    "./content": "./app/content.ts",
+    "./admin-editor": "./app/admin/editor.tsx"
+  },
   "scripts": {
     "dev": "next dev --port 3003",
     "build": "next build",
@@ -9,6 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/db": "*",
     "@repo/ui": "*",
     "next": "^15.0.0",
     "react": "^19.0.0",

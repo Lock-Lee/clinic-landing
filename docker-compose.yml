@@ -1,0 +1,51 @@
+# ฐานข้อมูล + ที่เก็บรูปของหลังบ้าน: docker compose up -d (bun run db:up)
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: clinic-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: clinic
+      POSTGRES_PASSWORD: clinic
+      POSTGRES_DB: clinic
+    ports:
+      - "5432:5432"
+    volumes:
+      - clinic-db-data:/var/lib/postgresql/data
+      - ./packages/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clinic -d clinic"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # ที่เก็บรูปแบบ S3 (SeaweedFS ใช้ S3 API เหมือน MinIO/R2/AWS S3 เปลี่ยนที่เก็บได้ด้วย .env)
+  # สิทธิ์อยู่ที่ docker/s3.json: แอปเขียนได้, คนทั่วไปอ่าน bucket clinic-media ได้
+  s3:
+    image: chrislusf/seaweedfs:3.97
+    container_name: clinic-s3
+    restart: unless-stopped
+    command: server -dir=/data -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json -ip.bind=0.0.0.0
+    ports:
+      - "8333:8333"
+    volumes:
+      - clinic-s3-data:/data
+      - ./docker/s3.json:/etc/seaweedfs/s3.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:8333/status || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # สร้าง bucket clinic-media ตั้งแต่แรก (สร้างผ่าน S3 API ตอนอัปโหลดครั้งแรก รูปจะอ่านไม่ได้จนกว่าจะ restart)
+  s3-init:
+    image: chrislusf/seaweedfs:3.97
+    depends_on:
+      s3:
+        condition: service_healthy
+    restart: "no"
+    entrypoint: ["/bin/sh", "-c", "echo 's3.bucket.create -name clinic-media' | weed shell -master=s3:9333"]
+
+volumes:
+  clinic-db-data:
+  clinic-s3-data:

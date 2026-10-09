@@ -1,9 +1,14 @@
-import { AnimatedMarqueeHero } from "@/components/ui/hero-3";
-import { FocusCards } from "@/components/ui/focus-cards";
+import { ChromeBlob } from "@/components/fx/chrome-blob";
+import { Cursor } from "@/components/fx/cursor";
+import { Projects } from "@/components/fx/projects";
+import { RiseIn } from "@/components/fx/rise-in";
+import { ScrollText } from "@/components/fx/scroll-text";
+import { SplitWords, splitWords } from "@/components/fx/split-words";
+import { VelocityMarquee } from "@/components/fx/velocity-marquee";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Timeline } from "@/components/ui/timeline";
 import { LineChatMock } from "@repo/ui/line-chat";
-import { site, showcase, heroImages, packages, domainRows, maPlans, steps, faqs, lineTiers, lineAddon, lineDemo } from "./content";
+import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, faqs, lineTiers, lineAddon, lineDemo } from "./content";
 import Motion from "./motion";
 
 // Schema.org ให้ Google และ AI เข้าใจว่าเว็บนี้ขายบริการอะไร ราคาเท่าไร และตอบคำถามอะไรได้
@@ -48,6 +53,13 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Motion />
+      <Cursor />
+      {/* หน้าจอโหลดสั้นๆ แบบ fahrunstudio.com เป็น CSS ล้วน ไม่บังการคลิก */}
+      <div className="fx-preloader" aria-hidden="true">
+        <span className="fx-preloader-brand">{site.brand}</span>
+        <span className="fx-preloader-count" />
+        <span className="fx-preloader-bar" />
+      </div>
       <header className="header">
         <div className="container header-inner">
           <a href="#top" className="brand">{site.brand}</a>
@@ -64,41 +76,59 @@ export default function Home() {
       </header>
 
       <main>
-        <div id="top">
-          <AnimatedMarqueeHero
-            tagline="เว็บไซต์สำหรับคลินิกเสริมความงามโดยเฉพาะ"
-            title={
-              <>
-                เว็บไซต์และ Landing Page
-                <br />
-                <span className="text-primary">ที่เปลี่ยนคนเข้าเว็บ ให้เป็นคิวนัด</span>
-              </>
-            }
-            description="ออกแบบให้ดูน่าเชื่อถือ โหลดเร็วบนมือถือ และพาลูกค้าไปที่ปุ่ม LINE หรือฟอร์มจองคิวได้ในไม่กี่วินาที เริ่มต้น 9,900 บาท"
-            ctaText="ดูแพ็กเกจและราคา"
-            ctaHref="#packages"
-            secondary={{ text: "ดูผลงาน", href: "#showcase" }}
-            images={heroImages}
-            className="h-[calc(100svh-72px)]"
-          />
-        </div>
-
-        <section id="showcase" className="band">
-          <div className="container section">
-            <div className="section-head">
-              <h2>ผลงานที่ผ่านมา</h2>
-              <p>ตัวอย่างเว็บคลินิกที่เราออกแบบ แต่ละงานปรับโทนสีและลำดับเนื้อหาตามกลุ่มลูกค้าของคลินิกนั้น</p>
+        <section id="top" className="fx-hero">
+          <ChromeBlob className="fx-hero-canvas" />
+          <div className="container fx-hero-inner">
+            <div className="fx-hero-intro">
+              <p>{hero.intro}</p>
+              <p className="fx-hero-sign">
+                <em>{hero.eyebrow}</em>
+                <span>{hero.startPrice}</span>
+              </p>
             </div>
-            <FocusCards
-              cards={showcase.map((item) => ({
-                title: item.name,
-                subtitle: item.category,
-                src: item.image,
-                href: item.url,
-              }))}
-            />
+            <div className="fx-hero-main">
+              <p className="fx-hero-eyebrow">Crafted for beauty clinics</p>
+              <h1 className="fx-hero-title">
+                <SplitWords text={hero.titleLines[0]} />
+                <br />
+                <span className="fx-hero-gradient">
+                  <SplitWords text={hero.titleLines[1]} start={splitWords(hero.titleLines[0]).length} />
+                </span>
+              </h1>
+              <div className="fx-hero-actions">
+                <a href="#packages" className="fx-pill fx-pill-light">
+                  ดูแพ็กเกจและราคา <span aria-hidden="true">↗</span>
+                </a>
+                <a href="#showcase" className="fx-pill">
+                  ดูผลงาน
+                </a>
+              </div>
+            </div>
+            <a href="#about" className="fx-hero-scroll">
+              เลื่อนลง
+            </a>
           </div>
         </section>
+
+        <div className="fx-dark">
+          <VelocityMarquee words={marqueeWords} images={heroImages} />
+
+          <section id="about" className="container fx-statement">
+            <span className="fx-label">เกี่ยวกับเรา</span>
+            <ScrollText text={statement} />
+          </section>
+
+          <section id="showcase" className="container section">
+            <div className="section-head">
+              <span className="fx-label">Selected Works</span>
+              <h2>
+                ผลงานที่ผ่านมา <em className="fx-serif">Featured</em>
+              </h2>
+              <p>ตัวอย่างเว็บคลินิกที่เราออกแบบ แต่ละงานปรับโทนสีและลำดับเนื้อหาตามกลุ่มลูกค้าของคลินิกนั้น</p>
+            </div>
+            <Projects projects={showcase} />
+          </section>
+        </div>
 
         <section id="packages" className="container section">
           <div className="section-head">
@@ -120,6 +150,13 @@ export default function Home() {
                 <p className="price">
                   {pkg.price} <span>บาท</span>
                 </p>
+                <p className="card-summary">{pkg.summary}</p>
+                <a href={pkg.demoUrl} target="_blank" rel="noopener" className="card-demo">
+                  ดูเว็บตัวอย่าง {pkg.name} ↗
+                </a>
+                <a href={`${pkg.demoUrl}/admin`} target="_blank" rel="noopener" className="card-demo">
+                  {pkg.name === "Starter" ? "ลองหลังบ้าน (ส่วนเสริม)" : "ลองแก้เว็บเองจากหลังบ้าน"} ↗
+                </a>
                 <ul>
                   {pkg.features.map((f) => (
                     <li key={f}>{f}</li>
@@ -249,11 +286,18 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="container footer">
-        <span>{site.brand}</span>
-        <span>
-          {site.email} · {site.facebook}
-        </span>
+      <footer className="fx-footer">
+        <div className="container">
+          <div className="footer">
+            <span>{site.brand}</span>
+            <span>
+              {site.email} · {site.facebook}
+            </span>
+          </div>
+          <RiseIn className="fx-footer-mark">
+            <span aria-hidden="true">{site.brand}</span>
+          </RiseIn>
+        </div>
       </footer>
 
       <a href={site.lineUrl} className="line-float" aria-label={`ทัก LINE ${site.lineId}`}>

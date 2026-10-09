@@ -106,6 +106,16 @@ a.sk-card:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0, 0
 .sk-nav a[aria-current="page"] { color: var(--accent-dark); border-bottom-color: var(--accent); }
 .sk-nav .sk-btn { padding: 9px 22px; }
 .sk-langs { font-size: 13px; color: var(--muted); }
+/* เมนูย่อย: จอใหญ่เปิดเมื่อชี้/โฟกัส หรือกดลูกศร */
+.sk-nav-item { position: relative; }
+.sk-nav-parent { display: flex; align-items: center; gap: 2px; }
+.sk-sub-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 40px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; transition: transform 0.2s; }
+.sk-nav-item[data-open] .sk-sub-toggle { transform: rotate(180deg); }
+.sk-sub { display: none; position: absolute; top: 100%; left: -16px; z-index: 31; min-width: 220px; max-height: 70vh; overflow-y: auto; padding: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1); flex-direction: column; }
+.sk-nav-item:hover .sk-sub, .sk-nav-item:focus-within .sk-sub, .sk-nav-item[data-open] .sk-sub { display: flex; }
+.sk-nav .sk-sub a:not(.sk-btn) { padding: 9px 12px; border-bottom: 0; border-radius: 8px; white-space: nowrap; }
+.sk-nav .sk-sub a:not(.sk-btn):hover { background: var(--ground); }
+.sk-nav .sk-sub a[aria-current="page"] { background: var(--accent-soft); }
 .sk-burger { display: none; font: inherit; font-weight: 600; background: none; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 16px; color: var(--ink); cursor: pointer; }
 
 @media (max-width: 900px) {
@@ -114,6 +124,14 @@ a.sk-card:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0, 0
   .sk-nav { display: none; width: 100%; flex-direction: column; align-items: stretch; padding-bottom: 16px; }
   .sk-nav.is-open { display: flex; }
   .sk-nav a:not(.sk-btn) { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  /* มือถือ: เมนูย่อยเปิดด้วยปุ่มลูกศรเท่านั้น แสดงต่อลงมาแบบย่อหน้า */
+  .sk-nav-parent { border-bottom: 1px solid var(--line); }
+  .sk-nav-parent a:not(.sk-btn) { flex: 1; border-bottom: 0; }
+  .sk-sub-toggle { min-width: 44px; min-height: 44px; font-size: 16px; }
+  .sk-nav-item:hover .sk-sub, .sk-nav-item:focus-within .sk-sub { display: none; }
+  .sk-sub, .sk-nav-item[data-open] .sk-sub { position: static; min-width: 0; max-height: none; padding: 0 0 0 16px; border: 0; border-radius: 0; box-shadow: none; background: none; }
+  .sk-nav-item[data-open] .sk-sub { display: flex; }
+  .sk-nav .sk-sub a:not(.sk-btn) { padding: 11px 0; border-bottom: 1px solid var(--line); border-radius: 0; white-space: normal; }
 }
 
 /* page hero + breadcrumb */
