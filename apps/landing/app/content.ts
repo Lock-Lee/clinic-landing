@@ -1,8 +1,8 @@
 import type { LineReply, RichMenuItem } from "@repo/ui/line-chat";
 
 export const site = {
-  brand: "[ชื่อแบรนด์ของคุณ]",
-  url: "https://example.com", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
+  brand: "hamcache",
+  url: "https://hamcache.vercel.app", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
   lineId: "[LINE ID ของคุณ]",
   lineUrl: "#", // เช่น https://line.me/ti/p/~yourid
   phone: "[เบอร์โทรของคุณ]",
