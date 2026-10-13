@@ -8,16 +8,22 @@ export function splitWords(text: string) {
 }
 
 // start = ลำดับคำแรก ใช้ไล่จังหวะต่อจากบรรทัดก่อนหน้า
+// ข้อความแบ่งเป็นวลีด้วยช่องว่างหรือ \u200B (ไม่เห็นเป็นช่องว่าง) ขึ้นบรรทัดใหม่ได้เฉพาะระหว่างวลี ไม่ตัดกลางคำอย่าง "มือ|ถือ"
 export function SplitWords({ text, start = 0 }: { text: string; start?: number }) {
+  let i = start;
   return (
     <>
-      {splitWords(text).map((word, i) =>
-        word.trim() ? (
-          <span key={i} className="fx-rise" style={{ "--i": start + i } as CSSProperties}>
-            {word}
+      {text.split(/([\s\u200B]+)/).map((part, pi) =>
+        part.replace(/\u200B/g, "").trim() ? (
+          <span key={pi} className="fx-phrase">
+            {splitWords(part).map((word, wi) => (
+              <span key={wi} className="fx-rise" style={{ "--i": i++ } as CSSProperties}>
+                {word}
+              </span>
+            ))}
           </span>
         ) : (
-          word
+          part
         ),
       )}
     </>
