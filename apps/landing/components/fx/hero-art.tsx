@@ -1,6 +1,6 @@
 "use client";
 
-// ภาพประกอบ hero: โชว์งานออกแบบจริง (ภาพเว็บตัวอย่างใน public/showcase) ในหน้าต่างเบราว์เซอร์และมือถือ
+// ภาพประกอบ hero: โชว์ผลงานจริง (หน้าแอปแม่ยุ้ยและ Rachanut ใน public/showcase) ในมือถือสองเครื่อง
 // มีป้ายลอยรอบๆ (ชุดสี ตัวอักษร แจ้งเตือน LINE) และรัศมีขาวทองด้านหลัง สีทั้งหมดมาจาก token ของชุดสีใน globals.css
 // ขยับตามเมาส์เล็กน้อย ผู้ใช้ที่ปิดแอนิเมชันเห็นภาพนิ่ง
 
@@ -52,18 +52,12 @@ export function HeroArt({ className }: { className?: string }) {
           })}
         </svg>
 
-        <div className="art-layer art-browser" style={{ "--depth": 1 } as React.CSSProperties}>
-          <div className="art-browser-bar">
-            <span />
-            <span />
-            <span />
-            <em>hamcache</em>
-          </div>
-          <img src="/showcase/premium.jpg" alt="" />
+        <div className="art-layer art-phone art-phone-back" style={{ "--depth": 1 } as React.CSSProperties}>
+          <img src="/showcase/screen-maeyui.jpg" alt="" />
         </div>
 
         <div className="art-layer art-phone" style={{ "--depth": 2.2 } as React.CSSProperties}>
-          <img src="/showcase/standard.jpg" alt="" />
+          <img src="/showcase/screen-rachanut.jpg" alt="" />
         </div>
 
         <div className="art-layer art-chip art-chip-type" style={{ "--depth": 3 } as React.CSSProperties}>

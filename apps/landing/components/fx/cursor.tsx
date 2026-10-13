@@ -23,24 +23,34 @@ export function Cursor() {
     if (!window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
     setEnabled(true);
 
+    const pick = (el: Element | null) => {
+      const t = el?.closest<HTMLElement>(TARGETS) ?? null;
+      setHover(Boolean(t));
+      setLabel(t?.dataset.cursor ?? null);
+    };
     const move = (e: PointerEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
       setShown(true);
     };
-    const over = (e: PointerEvent) => {
-      const el = e.target instanceof Element ? e.target.closest<HTMLElement>(TARGETS) : null;
-      setHover(Boolean(el));
-      setLabel(el?.dataset.cursor ?? null);
+    const over = (e: PointerEvent) => pick(e.target instanceof Element ? e.target : null);
+    // เลื่อนหน้าโดยไม่ขยับเมาส์ เบราว์เซอร์ไม่ส่ง pointerover ใหม่ ป้าย "เปิดดู" จะค้าง จึงเช็กสิ่งที่อยู่ใต้เมาส์ใหม่
+    let raf = 0;
+    const scroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => pick(document.elementFromPoint(x.get(), y.get())));
     };
     const leave = () => setShown(false);
 
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerover", over, { passive: true });
+    window.addEventListener("scroll", scroll, { passive: true });
     document.documentElement.addEventListener("pointerleave", leave);
     return () => {
       window.removeEventListener("pointermove", move);
       document.removeEventListener("pointerover", over);
+      window.removeEventListener("scroll", scroll);
+      cancelAnimationFrame(raf);
       document.documentElement.removeEventListener("pointerleave", leave);
     };
   }, [x, y]);

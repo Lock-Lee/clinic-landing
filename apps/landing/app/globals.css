@@ -325,6 +325,51 @@ section[id] { scroll-margin-top: 80px; }
 .card-featured .card-demo-live .fx-live-dot { background: var(--accent-soft); }
 .badge { background: var(--accent-soft); color: var(--ink); font-size: 13px; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
 
+/* ระบบที่ทีมเคยร่วมพัฒนา (components/work-gallery.tsx) */
+.work-grid { display: grid; gap: 24px; grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1000px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
+.work-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform 0.3s var(--ease-out), box-shadow 0.3s; }
+.work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px color-mix(in srgb, var(--night) 12%, transparent); }
+.work-card button { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; }
+.work-card button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.work-cover { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ground); }
+.work-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
+.work-card:hover .work-cover img { transform: scale(1.04); }
+.work-count { position: absolute; right: 12px; bottom: 12px; padding: 4px 12px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 600; box-shadow: 0 4px 12px color-mix(in srgb, var(--night) 18%, transparent); }
+.work-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 6px 6px 0; }
+.work-thumbs button { aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--ground); }
+.work-thumbs img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s; }
+.work-thumbs button:hover img { opacity: 0.8; }
+.work-info { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; flex: 1; }
+.work-info h3 { font-size: 21px; }
+.work-kind { font-size: 13px; font-weight: 600; color: var(--accent); }
+.work-summary { color: var(--muted); font-size: 15px; line-height: 1.6; }
+.work-company { margin-top: auto; padding-top: 8px; font-size: 13px; color: var(--muted); }
+.work-others { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.work-others ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.work-others li { padding: 6px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 14px; font-weight: 500; }
+
+.work-lightbox { max-width: none; max-height: none; width: 100vw; height: 100dvh; margin: 0; padding: 56px 16px; border: 0; background: transparent; display: none; place-items: center; }
+.work-lightbox[open] { display: grid; }
+.work-lightbox::backdrop { background: color-mix(in srgb, var(--night) 88%, transparent); backdrop-filter: blur(6px); }
+.work-lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 100%; max-height: 100%; }
+.work-lightbox figure img { max-width: min(1100px, 100%); max-height: calc(100dvh - 160px); object-fit: contain; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); animation: fx-fade 0.3s both; }
+.work-lightbox figcaption { color: #fff; font-size: 15px; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; }
+.work-lightbox figcaption span { opacity: 0.75; font-variant-numeric: tabular-nums; }
+.work-nav, .work-close {
+  position: fixed; width: 48px; height: 48px; border-radius: 50%; border: 0; background: #fff; color: var(--ink); cursor: pointer;
+  display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.work-nav svg, .work-close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.work-nav.is-prev { left: 16px; top: 50%; translate: 0 -50%; }
+.work-nav.is-next { right: 16px; top: 50%; translate: 0 -50%; }
+.work-close { right: 16px; top: 16px; }
+.work-nav:focus-visible, .work-close:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .work-nav { top: auto; bottom: 16px; translate: none; }
+}
+
 /* add-ons */
 .addon { display: flex; flex-direction: column; gap: 20px; }
 .addon h2 { font-size: 30px; }
@@ -608,27 +653,6 @@ section[id] { scroll-margin-top: 80px; }
   translate: calc(var(--mx) * var(--depth) * -6px) calc(var(--my) * var(--depth) * -6px);
   transition: translate 0.6s var(--ease-out);
 }
-.art-browser {
-  left: 20%;
-  top: 12%;
-  width: 72%;
-  border-radius: 2.4cqw;
-  overflow: hidden;
-  background: #fff;
-  rotate: -3deg;
-  box-shadow: 0 3cqw 7cqw color-mix(in srgb, var(--night) 28%, transparent);
-  animation: art-float 9s ease-in-out infinite;
-}
-.art-browser-bar { display: flex; align-items: center; gap: 1cqw; padding: 1.6cqw 2cqw; background: #fff; border-bottom: 1px solid var(--line); }
-.art-browser-bar span { width: 1.6cqw; height: 1.6cqw; border-radius: 50%; background: var(--line); }
-.art-browser-bar span:nth-child(1) { background: var(--accent); }
-.art-browser-bar span:nth-child(2) { background: var(--gold); }
-.art-browser-bar em {
-  margin-left: 2cqw; flex: 1; font-style: normal; font-size: max(10px, 1.9cqw); color: var(--muted);
-  background: var(--ground); border-radius: 999px; padding: 0.4cqw 2cqw; line-height: 1.6;
-}
-.art-browser img { display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover; object-position: top; }
-
 .art-phone {
   left: 5%;
   top: 36%;
@@ -643,6 +667,8 @@ section[id] { scroll-margin-top: 80px; }
   animation: art-float 7s ease-in-out -2s infinite;
 }
 .art-phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+/* เครื่องหลัง: ใหญ่กว่า เอียงขวา */
+.art-phone-back { left: auto; right: 12%; top: 6%; width: 36%; rotate: 6deg; animation-duration: 9s; animation-delay: 0s; }
 
 .art-chip {
   display: flex;
@@ -686,6 +712,12 @@ section[id] { scroll-margin-top: 80px; }
 .fx-hero-sign { display: flex; flex-direction: column; }
 .fx-hero-sign em { font-family: var(--font-serif), Georgia, serif; font-size: 24px; color: var(--on-night); }
 .fx-hero-main { display: flex; flex-direction: column; gap: 28px; }
+/* จอกว้าง: ข้อความอยู่ครึ่งซ้าย ภาพประกอบอยู่ครึ่งขวา ไม่ซ้อนกัน */
+@media (min-width: 768px) {
+  .fx-hero-art { left: 50%; right: 0; width: auto; }
+  .fx-hero-main { max-width: 50%; }
+  .fx-hero-intro { max-width: min(440px, 50%); }
+}
 .fx-hero-eyebrow {
   font-family: var(--font-serif), Georgia, serif;
   font-style: italic;

@@ -9,8 +9,9 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { Timeline } from "@/components/ui/timeline";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { TeamCard } from "@/components/team-card";
+import { WorkGallery } from "@/components/work-gallery";
 import { LineChatMock } from "@repo/ui/line-chat";
-import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, faqs, lineTiers, lineAddon, lineDemo } from "./content";
+import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, pastWork, otherWork, showPastWork, faqs, lineTiers, lineAddon, lineDemo } from "./content";
 import Motion from "./motion";
 
 // Schema.org ให้ Google และ AI เข้าใจว่าเว็บนี้ขายบริการอะไร ราคาเท่าไร และตอบคำถามอะไรได้
@@ -71,7 +72,8 @@ export default function Home() {
           <ThemeSwitcher />
           <a href="#contact" className="btn btn-primary header-cta">ขอใบเสนอราคา</a>
           <nav className="nav" aria-label="เมนูหลัก">
-            <a href="#showcase">ตัวอย่าง</a>
+            <a href="#showcase">ผลงาน</a>
+            {showPastWork && <a href="#work">งานที่ผ่านมา</a>}
             <a href="#packages">แพ็กเกจ</a>
             <a href="#line">LINE OA</a>
             <a href="#addons">โดเมนและ MA</a>
@@ -107,7 +109,7 @@ export default function Home() {
                   ดูแพ็กเกจและราคา <span aria-hidden="true">↗</span>
                 </a>
                 <a href="#showcase" className="fx-pill">
-                  ดูเว็บตัวอย่าง
+                  ดูผลงาน
                 </a>
               </div>
             </div>
@@ -127,15 +129,35 @@ export default function Home() {
 
           <section id="showcase" className="container section">
             <div className="section-head">
-              <span className="fx-label">Live Demos</span>
+              <span className="fx-label">Selected Work</span>
               <h2>
-                เว็บตัวอย่างแต่ละแพ็กเกจ <em className="fx-serif">Live</em>
+                ผลงานของเรา <em className="fx-serif">Work</em>
               </h2>
-              <p>กดเข้าไปลองใช้ได้จริงทั้งหน้าเว็บและหลังบ้าน เว็บตัวอย่างเป็นธุรกิจคลินิก ชื่อ บุคคล และราคาเป็นข้อมูลสมมติ ทำแบบเดียวกันให้ธุรกิจอื่นได้</p>
+              <p>แอปและเว็บที่ทีมเราออกแบบและพัฒนาให้ลูกค้า กดดูวิดีโอการใช้งานจริงได้</p>
             </div>
             <Projects projects={showcase} />
           </section>
         </div>
+
+        {showPastWork && (
+        <section id="work" className="container section">
+          <div className="section-head">
+            <h2>ระบบที่ทีมเคยร่วมพัฒนา</h2>
+            <p>นอกจากเว็บและแอปของลูกค้า ทีมเราเคยร่วมพัฒนาระบบให้องค์กร ทั้งแอป ระบบหน้าร้าน คลังสินค้า เครื่องจักร และระบบหน่วยงานรัฐ กดที่ภาพเพื่อดูภาพใหญ่</p>
+          </div>
+          <WorkGallery works={pastWork} />
+          <div className="work-others">
+            <span className="muted small">งานอื่นที่ทีมเคยร่วมพัฒนา</span>
+            <ul>
+              {otherWork.map((o) => (
+                <li key={o.name + o.company}>
+                  {o.name} <span className="muted">· {o.company}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        )}
 
         <section id="packages" className="container section">
           <div className="section-head">

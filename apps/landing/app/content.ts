@@ -13,7 +13,7 @@ export const site = {
 
 export const hero = {
   eyebrow: "Web Design Studio",
-  titleLines: ["เว็บไซต์และ Landing Page", "ที่เปลี่ยนคนเข้าเว็บ ให้เป็นลูกค้า"],
+  titleLines: ["เว็บไซต์และแอปมือถือ", "ที่ลูกค้าใช้ง่าย กดสั่งได้ทันที"],
   intro:
     "ออกแบบให้ดูน่าเชื่อถือ โหลดเร็วบนมือถือ และพาลูกค้าไปที่ปุ่ม LINE ฟอร์มติดต่อ หรือหน้าสั่งซื้อได้ในไม่กี่วินาที",
   startPrice: "เริ่มต้น 12,000 บาท",
@@ -48,14 +48,11 @@ export type ShowcaseItem = {
   video?: string; // วิดีโอแนวตั้ง เล่นเองแบบปิดเสียงเมื่อเลื่อนถึง เช่น ผลงานแอปมือถือ
   mediaBg?: string; // สีพื้นข้างวิดีโอ/ภาพแนวตั้ง ให้กลืนกับพื้นของสื่อ
   fit?: "contain"; // ภาพแนวตั้ง (เช่นหน้าแอป) แสดงเต็มภาพไม่ครอป
-  badge?: string; // ป้ายมุมภาพ ไม่ใส่ = "Live" (เว็บตัวอย่างที่เปิดลองได้)
+  badge?: string; // ป้ายมุมภาพ ไม่ใส่ = "Live"
 };
 
-// ตอนนี้ยังไม่มีผลงานลูกค้าจริง ใช้เว็บตัวอย่างของแต่ละแพ็ก (ลิงก์เดียวกับ demoUrl ใน packages) เดโมทั้ง 3 ตัวเป็นธุรกิจคลินิก
+// ผลงานลูกค้าจริง แสดงใน section #showcase (ไม่ใส่เว็บเดโม เดโมลิงก์อยู่ในการ์ดแพ็กเกจแทน)
 export const showcase: ShowcaseItem[] = [
-  { name: "Mira Skin", category: "เว็บตัวอย่างแพ็กเกจ Starter · คลินิกรักษาสิว หน้าเดียว", url: "http://localhost:3002", image: "/showcase/starter.jpg" },
-  { name: "Lumière Clinic", category: "เว็บตัวอย่างแพ็กเกจ Standard · คลินิกผิวพรรณ หน้าเดียวเต็ม + LINE OA", url: "http://localhost:3001", image: "/showcase/standard.jpg" },
-  { name: "Atelier Belle Clinic", category: "เว็บตัวอย่างแพ็กเกจ Premium · ศัลยกรรมและผิวพรรณ หลายหน้า", url: "http://localhost:3003", image: "/showcase/premium.jpg" },
   // ผลงานลูกค้าจริง: แอปสั่งอาหาร วิดีโอโปรโมทตัวจริงมีเสียง ในการ์ดเล่นแบบปิดเสียง กดแล้วเปิดวิดีโอเต็มพร้อมเสียง
   {
     name: "แม่ยุ้ย",
@@ -66,14 +63,14 @@ export const showcase: ShowcaseItem[] = [
     mediaBg: "#f4e5dc",
     badge: "แอปมือถือ",
   },
-  // ผลงานลูกค้าจริง: แอปขายอะไหล่บน App Store วิดีโอทำจากภาพหน้าจอแอป มีลิงก์ App Store แล้วใส่แทน url ได้ (ตอนนี้กดแล้วเปิดวิดีโอ)
+  // ผลงานลูกค้าจริง: แอปขายอะไหล่บน App Store วิดีโอทำจากภาพหน้าจอแอปแบบเดียวกับแม่ยุ้ย (ใช้เพลงเดียวกัน) มีลิงก์ App Store แล้วใส่แทน url ได้ (ตอนนี้กดแล้วเปิดวิดีโอ)
   {
     name: "Rachanut",
     category: "แอปมือถือบน App Store · ร้านอะไหล่ น็อต และอุปกรณ์ ค้นหาสินค้า คูปองส่วนลด สั่งซื้อในแอป",
     url: "/showcase/rachanut.mp4",
     image: "/showcase/rachanut-poster.jpg",
     video: "/showcase/rachanut.mp4",
-    mediaBg: "linear-gradient(180deg, #f3eaa4, #ffd95e 50%, #ffd142)",
+    mediaBg: "linear-gradient(180deg, #fee99a, #ffd95e 50%, #fdd242)",
     badge: "App Store",
   },
 ];
@@ -147,6 +144,103 @@ export const packages = [
       { label: "ดูแลฟรี", value: "3 เดือน" },
     ],
   },
+];
+
+// ระบบที่ทีมเคยร่วมพัฒนา (งานผ่านบริษัทอื่น ไม่ใช่ลูกค้าของ HamCache โดยตรง) แสดงใน section #work
+// ภาพอยู่ใน public/work/<slug>/1.jpg, 2.jpg ... ภาพแรกเป็นปก
+// TODO รอเจ้าของยืนยัน: บทบาทของทีมในแต่ละงาน, งานที่เปิดเผยได้, ความยินยอมของคนในภาพ (PDPA)
+// ซ่อนไว้ก่อนจนกว่าจะยืนยันบทบาทของทีม งานที่เปิดเผยได้ และความยินยอมของคนในภาพ เปลี่ยนเป็น true เพื่อแสดง
+export const showPastWork = false;
+
+export type PastWork = {
+  slug: string;
+  name: string;
+  company: string;
+  kind: string;
+  summary: string;
+  images: { alt: string }[];
+  featured?: boolean;
+};
+
+const shots = (alts: string[]) => alts.map((alt) => ({ alt }));
+
+export const pastWork: PastWork[] = [
+  {
+    slug: "laguna",
+    name: "Laguna",
+    company: "INSYSC",
+    kind: "แอป + ระบบหน้าร้าน",
+    summary: "แอปและระบบหน้าร้านซักรีด มี POS สินค้า ติดตามออเดอร์ และขนส่ง ติดตั้งเครื่องที่หน้าร้านพร้อมพิมพ์ใบเสร็จ QR",
+    featured: true,
+    images: shots(["ติดตั้งเครื่อง POS ที่หน้าร้าน", "หน้าแอป Laguna ใน Store", "หน้างานร้านซักรีด", "ประชุมและทดสอบระบบกับร้าน", "ใบเสร็จจากระบบ"]),
+  },
+  {
+    slug: "atmos",
+    name: "atmos",
+    company: "INSYSC",
+    kind: "แอปร้านค้า + ระบบคลังสินค้า",
+    summary: "แอปร้านรองเท้า ดูสินค้า เลือกสีและไซซ์ เช็กสต็อก และระบบคลังสินค้าที่ใช้เครื่องสแกนมือถือ",
+    featured: true,
+    images: shots(["หน้างานคลังสินค้า", "หน้าสินค้าในแอป", "หน้ารายการสินค้าในแอป", "สแกนสินค้าในคลัง", "ทดสอบเครื่องสแกนกับระบบ", "ทีมงานที่หน้างาน"]),
+  },
+  {
+    slug: "vending",
+    name: "ตู้ขายสินค้าอัตโนมัติ",
+    company: "Revelsoft",
+    kind: "ระบบ + เครื่องจักร",
+    summary: "ระบบตู้ขายสินค้าอัตโนมัติ ประกอบตู้ ติดตั้งระบบ และทดสอบที่หน้างาน",
+    featured: true,
+    images: shots(["ติดตั้งระบบในตู้", "ทดสอบตู้หน้างาน", "ประกอบตู้"]),
+  },
+  {
+    slug: "associate-benefits",
+    name: "Associate's Benefits",
+    company: "INSYSC",
+    kind: "แอปพนักงาน",
+    summary: "แอปสวัสดิการพนักงาน ปรับยอดแคชเชียร์ ดูประวัติ และสิทธิ์สวัสดิการ พร้อมอบรมผู้ใช้ที่หน้างาน",
+    images: shots(["หน้าแอปใน Store", "อบรมผู้ใช้", "อบรมผู้ใช้", "อบรมผู้ใช้", "อบรมผู้ใช้", "อบรมผู้ใช้"]),
+  },
+  {
+    slug: "pdpc",
+    name: "PDPC e-learning",
+    company: "PFC",
+    kind: "ระบบสอบ + E-learning",
+    summary: "ระบบสอบและหลักสูตรเรียนออนไลน์ด้านการคุ้มครองข้อมูลส่วนบุคคล",
+    images: shots(["หน้าเว็บ PDPC e-learning"]),
+  },
+  {
+    slug: "zwiz",
+    name: "ZWIZ.AI",
+    company: "ZWIZ",
+    kind: "แชทบอท AI",
+    summary: "ระบบแชทบอท AI ตอบลูกค้าและช่วยขายสำหรับร้านค้าออนไลน์",
+    images: shots(["หน้าเว็บ ZWIZ.AI"]),
+  },
+  {
+    slug: "eventtech",
+    name: "EventTech",
+    company: "ZWIZ",
+    kind: "แพลตฟอร์มอีเวนต์",
+    summary: "แพลตฟอร์มงานอีเวนต์ ข้อมูลงาน ขายบัตร และเครื่องมือสำหรับผู้จัดงาน",
+    images: shots(["หน้าเว็บ EventTech"]),
+  },
+  {
+    slug: "waylar",
+    name: "WAYLAR",
+    company: "WAYLAR",
+    kind: "แพลตฟอร์มโลจิสติกส์",
+    summary: "แพลตฟอร์มโลจิสติกส์ครบชุด ระบบจัดการออเดอร์ คลังสินค้า และขนส่ง",
+    images: shots(["หน้าเว็บ WAYLAR"]),
+  },
+];
+
+// งานที่ยังไม่มีภาพ แสดงเป็นรายชื่อ
+export const otherWork = [
+  { name: "ระบบ e-office", company: "สลก." },
+  { name: "ระบบสอบ", company: "สดช." },
+  { name: "ระบบ ERP", company: "Chicony" },
+  { name: "ระบบร้านของขวัญ", company: "Revelsoft" },
+  { name: "งานระบบ", company: "KBTG" },
 ];
 
 // ระบบ LINE OA: แสดงใน section #line ของหน้าขาย
