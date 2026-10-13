@@ -1,8 +1,8 @@
 import type { LineReply, RichMenuItem } from "@repo/ui/line-chat";
 
 export const site = {
-  brand: "Hamcache",
-  url: "https://Hamcache.vercel.app", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
+  brand: "HamCache",
+  url: "https://HamCache.vercel.app", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
   lineId: "[LINE ID ของคุณ]",
   lineUrl: "#", // เช่น https://line.me/ti/p/~yourid
   phone: "[เบอร์โทรของคุณ]",
@@ -171,6 +171,14 @@ export const steps = [
   { title: "2. มัดจำและส่งข้อมูล", detail: "ส่งโลโก้ รูป ข้อความ ราคาสินค้าหรือบริการ และโปรโมชัน" },
   { title: "3. ออกแบบและแก้ไข", detail: "ส่งลิงก์ตัวอย่างให้ดูบนมือถือ แก้ตามรอบของแพ็กเกจ" },
   { title: "4. ขึ้นเว็บจริง", detail: "เชื่อมโดเมน ติดตั้งตัววัดผล และสอนใช้งาน" },
+];
+
+// ทีมงาน: แสดงใน section #team ของหน้าขาย ใส่ชื่อจริงแทน [ชื่อ] ได้
+export const team = [
+  { role: "Technical Lead", name: "[ชื่อ]", detail: "นำทีมพัฒนา วางโครงสร้างระบบ เลือกเทคโนโลยี และดูแลความเร็วกับความปลอดภัยของเว็บ" },
+  { role: "Mobile Developer", name: "[ชื่อ]", detail: "ทำให้เว็บใช้งานลื่นบนมือถือ และพัฒนาแอปมือถือเมื่อธุรกิจต้องการ" },
+  { role: "Backend Developer", name: "[ชื่อ]", detail: "ทำระบบหลังบ้าน ฐานข้อมูล ระบบจอง และเชื่อมต่อ LINE OA" },
+  { role: "Full Stack Developer", name: "[ชื่อ]", detail: "ทำหน้าเว็บและหลังบ้านให้เชื่อมกันครบ ตั้งแต่ออกแบบจนขึ้นเว็บจริง" },
 ];
 
 // คำถามที่พบบ่อย: แสดงบนหน้าเว็บและส่งเป็น FAQPage Schema ให้ Google / AI ใช้ตอบ (AEO)

@@ -145,6 +145,11 @@ section[id] { scroll-margin-top: 80px; }
 .card-featured { background: var(--ink); border-color: var(--ink); color: #fff; }
 .card-featured .card-for { color: var(--on-ink-muted); }
 .card-summary { font-weight: 500; }
+.team-grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card { gap: 10px; padding: 28px; }
+.team-card .card-type { margin-top: 0; }
 .card-demo + .card-demo { margin-top: -16px; font-weight: 500; }
 .card-demo { align-self: flex-start; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; padding: 6px 0; }
 .card-demo:hover { color: var(--accent); }

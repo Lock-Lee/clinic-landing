@@ -8,7 +8,7 @@ import { VelocityMarquee } from "@/components/fx/velocity-marquee";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Timeline } from "@/components/ui/timeline";
 import { LineChatMock } from "@repo/ui/line-chat";
-import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, faqs, lineTiers, lineAddon, lineDemo } from "./content";
+import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, faqs, lineTiers, lineAddon, lineDemo } from "./content";
 import Motion from "./motion";
 
 // Schema.org ให้ Google และ AI เข้าใจว่าเว็บนี้ขายบริการอะไร ราคาเท่าไร และตอบคำถามอะไรได้
@@ -70,6 +70,7 @@ export default function Home() {
             <a href="#line">LINE OA</a>
             <a href="#addons">โดเมนและ MA</a>
             <a href="#process">ขั้นตอน</a>
+            <a href="#team">ทีมงาน</a>
             <a href="#faq">คำถาม</a>
           </nav>
         </div>
@@ -266,6 +267,22 @@ export default function Home() {
             ธุรกิจที่มีกฎโฆษณาเฉพาะ เช่น คลินิก (สบส.) อาหารและเครื่องสำอาง (อย.)
             เจ้าของธุรกิจเป็นผู้รับผิดชอบการขออนุมัติโฆษณา เราช่วยจัดเนื้อหาให้เหมาะสม
           </p>
+        </section>
+
+        <section id="team" className="container section">
+          <div className="section-head">
+            <h2>ทีมงาน</h2>
+            <p>ทีมนักพัฒนาที่ดูแลเว็บของคุณครบทุกส่วน ตั้งแต่หน้าเว็บ มือถือ ไปจนถึงระบบหลังบ้าน</p>
+          </div>
+          <div className="grid team-grid">
+            {team.map((member) => (
+              <div key={member.role} className="card team-card">
+                <p className="card-type">{member.role}</p>
+                <h3>{member.name}</h3>
+                <p className="muted">{member.detail}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section id="faq" className="band">
