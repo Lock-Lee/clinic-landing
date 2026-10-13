@@ -29,6 +29,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 1.1, ease: [0.7, 0, 0.2, 1] }}
       >
+        <span className="fx-project-live">
+          <span className="fx-live-dot" aria-hidden="true" />
+          Live
+        </span>
         <motion.img src={project.image} alt={`ภาพหน้าจอเว็บ ${project.name}`} loading="lazy" style={reduce ? undefined : { scale }} />
       </motion.div>
       <div className="fx-project-info">

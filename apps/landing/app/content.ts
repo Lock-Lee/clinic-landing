@@ -173,13 +173,17 @@ export const steps = [
   { title: "4. ขึ้นเว็บจริง", detail: "เชื่อมโดเมน ติดตั้งตัววัดผล และสอนใช้งาน" },
 ];
 
-// ทีมงาน: แสดงใน section #team ของหน้าขาย ใส่ชื่อจริงแทน [ชื่อ] ได้
+// ทีมงาน: แสดงใน section #team ของหน้าขาย ใส่ชื่อจริงแทน [ชื่อ]
+// photo: วางรูปใน public/team/ แล้วใส่ path เช่น "/team/lead.jpg" (รูปจัตุรัส หน้าอยู่กลางภาพ) เว้นว่างไว้จะแสดงภาพเงาแทน
+// skills: ความถนัด ขึ้นเป็นป้ายเมื่อชี้ที่การ์ด
 export const team = [
-  { role: "Technical Lead", name: "[ชื่อ]", detail: "นำทีมพัฒนา วางโครงสร้างระบบ เลือกเทคโนโลยี และดูแลความเร็วกับความปลอดภัยของเว็บ" },
-  { role: "Mobile Developer", name: "[ชื่อ]", detail: "ทำให้เว็บใช้งานลื่นบนมือถือ และพัฒนาแอปมือถือเมื่อธุรกิจต้องการ" },
-  { role: "Backend Developer", name: "[ชื่อ]", detail: "ทำระบบหลังบ้าน ฐานข้อมูล ระบบจอง และเชื่อมต่อ LINE OA" },
-  { role: "Full Stack Developer", name: "[ชื่อ]", detail: "ทำหน้าเว็บและหลังบ้านให้เชื่อมกันครบ ตั้งแต่ออกแบบจนขึ้นเว็บจริง" },
+  { role: "Technical Lead", name: "[ชื่อ]", photo: "", detail: "นำทีมพัฒนา วางโครงสร้างระบบ เลือกเทคโนโลยี และดูแลความเร็วกับความปลอดภัยของเว็บ", skills: ["System Design", "Security", "Code Review"] },
+  { role: "Mobile Developer", name: "[ชื่อ]", photo: "", detail: "ทำให้เว็บใช้งานลื่นบนมือถือ และพัฒนาแอปมือถือเมื่อธุรกิจต้องการ", skills: ["React Native", "iOS", "Android"] },
+  { role: "Backend Developer", name: "[ชื่อ]", photo: "", detail: "ทำระบบหลังบ้าน ฐานข้อมูล ระบบจอง และเชื่อมต่อ LINE OA", skills: ["API", "PostgreSQL", "LINE API"] },
+  { role: "Full Stack Developer", name: "[ชื่อ]", photo: "", detail: "ทำหน้าเว็บและหลังบ้านให้เชื่อมกันครบ ตั้งแต่ออกแบบจนขึ้นเว็บจริง", skills: ["Next.js", "React", "UI"] },
 ];
+
+export type TeamMember = (typeof team)[number];
 
 // คำถามที่พบบ่อย: แสดงบนหน้าเว็บและส่งเป็น FAQPage Schema ให้ Google / AI ใช้ตอบ (AEO)
 export const faqs = [

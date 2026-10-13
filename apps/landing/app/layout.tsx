@@ -47,6 +47,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// ชุดสีที่ผู้ชมเลือกไว้ (components/theme-switcher.tsx) ตั้งก่อนวาดหน้า ไม่ให้สีกระพริบ
+const THEMES = ["purple", "green", "red", "blue"];
+const APPLY_THEME = `try{var t=localStorage.getItem("hc-theme");if(${JSON.stringify(THEMES)}.indexOf(t)>-1)document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
+
 const SKIP_PRELOADER = `try{var q=location.search,s=/[?&](utm_|gclid|fbclid|ttclid)/.test(q)||location.hash.length>1||localStorage.getItem("seen-intro");localStorage.setItem("seen-intro","1");if(s)document.documentElement.classList.add("no-intro")}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -55,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* หน้าจอโหลดแสดงเฉพาะครั้งแรก ไม่แสดงกับคนที่มาจากโฆษณาหรือลิงก์ที่ชี้ไปส่วนใดส่วนหนึ่งของหน้า ตัดสินก่อนวาดหน้าแรก */}
         <script dangerouslySetInnerHTML={{ __html: SKIP_PRELOADER }} />
+        <script dangerouslySetInnerHTML={{ __html: APPLY_THEME }} />
       </head>
       <body>{children}</body>
     </html>

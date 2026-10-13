@@ -1,4 +1,4 @@
-import { ChromeBlob } from "@/components/fx/chrome-blob";
+import { HeroArt } from "@/components/fx/hero-art";
 import { Cursor } from "@/components/fx/cursor";
 import { Projects } from "@/components/fx/projects";
 import { RiseIn } from "@/components/fx/rise-in";
@@ -7,6 +7,8 @@ import { SplitWords, splitWords } from "@/components/fx/split-words";
 import { VelocityMarquee } from "@/components/fx/velocity-marquee";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Timeline } from "@/components/ui/timeline";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { TeamCard } from "@/components/team-card";
 import { LineChatMock } from "@repo/ui/line-chat";
 import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, faqs, lineTiers, lineAddon, lineDemo } from "./content";
 import Motion from "./motion";
@@ -63,6 +65,7 @@ export default function Home() {
       <header className="header">
         <div className="container header-inner">
           <a href="#top" className="brand">{site.brand}</a>
+          <ThemeSwitcher />
           <a href="#contact" className="btn btn-primary header-cta">ขอใบเสนอราคา</a>
           <nav className="nav" aria-label="เมนูหลัก">
             <a href="#showcase">ตัวอย่าง</a>
@@ -78,7 +81,7 @@ export default function Home() {
 
       <main>
         <section id="top" className="fx-hero">
-          <ChromeBlob className="fx-hero-canvas" />
+          <HeroArt className="fx-hero-art" />
           <div className="container fx-hero-inner">
             <div className="fx-hero-intro">
               <p>{hero.intro}</p>
@@ -152,7 +155,8 @@ export default function Home() {
                   {pkg.price} <span>บาท</span>
                 </p>
                 <p className="card-summary">{pkg.summary}</p>
-                <a href={pkg.demoUrl} target="_blank" rel="noopener" className="card-demo">
+                <a href={pkg.demoUrl} target="_blank" rel="noopener" className="card-demo card-demo-live">
+                  <span className="fx-live-dot" aria-hidden="true" />
                   ดูเว็บตัวอย่าง {pkg.name} ↗
                 </a>
                 <a href={`${pkg.demoUrl}/admin`} target="_blank" rel="noopener" className="card-demo">
@@ -276,11 +280,7 @@ export default function Home() {
           </div>
           <div className="grid team-grid">
             {team.map((member) => (
-              <div key={member.role} className="card team-card">
-                <p className="card-type">{member.role}</p>
-                <h3>{member.name}</h3>
-                <p className="muted">{member.detail}</p>
-              </div>
+              <TeamCard key={member.role} member={member} />
             ))}
           </div>
         </section>
