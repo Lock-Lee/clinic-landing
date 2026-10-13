@@ -42,13 +42,14 @@ export const metadata: Metadata = {
     siteName: site.brand,
     title,
     description,
+    images: [{ url: "/brand/hamcache-logo@1024.png", width: 1024, height: 374, alt: "HamCache" }],
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: { card: "summary_large_image", title, description, images: ["/brand/hamcache-logo@1024.png"] },
   robots: { index: true, follow: true },
 };
 
 // ชุดสีที่ผู้ชมเลือกไว้ (components/theme-switcher.tsx) ตั้งก่อนวาดหน้า ไม่ให้สีกระพริบ
-const THEMES = ["purple", "green", "red", "blue"];
+const THEMES = ["hamcache", "purple", "green", "red", "blue"];
 const APPLY_THEME = `try{var t=localStorage.getItem("hc-theme");if(${JSON.stringify(THEMES)}.indexOf(t)>-1)document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
 
 const SKIP_PRELOADER = `try{var q=location.search,s=/[?&](utm_|gclid|fbclid|ttclid)/.test(q)||location.hash.length>1||localStorage.getItem("seen-intro");localStorage.setItem("seen-intro","1");if(s)document.documentElement.classList.add("no-intro")}catch(e){}`;

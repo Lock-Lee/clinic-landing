@@ -44,7 +44,11 @@ export type ShowcaseItem = {
   name: string;
   category: string;
   url: string;
-  image: string; // ภาพหน้าจอใน public/showcase/ มีผลงานลูกค้าจริงแล้วเพิ่มต่อท้ายได้
+  image: string; // ภาพหน้าจอใน public/showcase/ มีผลงานลูกค้าจริงแล้วเพิ่มต่อท้ายได้ (ถ้ามี video ใช้เป็นภาพก่อนเล่น)
+  video?: string; // วิดีโอแนวตั้ง เล่นเองแบบปิดเสียงเมื่อเลื่อนถึง เช่น ผลงานแอปมือถือ
+  mediaBg?: string; // สีพื้นข้างวิดีโอ/ภาพแนวตั้ง ให้กลืนกับพื้นของสื่อ
+  fit?: "contain"; // ภาพแนวตั้ง (เช่นหน้าแอป) แสดงเต็มภาพไม่ครอป
+  badge?: string; // ป้ายมุมภาพ ไม่ใส่ = "Live" (เว็บตัวอย่างที่เปิดลองได้)
 };
 
 // ตอนนี้ยังไม่มีผลงานลูกค้าจริง ใช้เว็บตัวอย่างของแต่ละแพ็ก (ลิงก์เดียวกับ demoUrl ใน packages) เดโมทั้ง 3 ตัวเป็นธุรกิจคลินิก
@@ -52,6 +56,26 @@ export const showcase: ShowcaseItem[] = [
   { name: "Mira Skin", category: "เว็บตัวอย่างแพ็กเกจ Starter · คลินิกรักษาสิว หน้าเดียว", url: "http://localhost:3002", image: "/showcase/starter.jpg" },
   { name: "Lumière Clinic", category: "เว็บตัวอย่างแพ็กเกจ Standard · คลินิกผิวพรรณ หน้าเดียวเต็ม + LINE OA", url: "http://localhost:3001", image: "/showcase/standard.jpg" },
   { name: "Atelier Belle Clinic", category: "เว็บตัวอย่างแพ็กเกจ Premium · ศัลยกรรมและผิวพรรณ หลายหน้า", url: "http://localhost:3003", image: "/showcase/premium.jpg" },
+  // ผลงานลูกค้าจริง: แอปสั่งอาหาร วิดีโอโปรโมทตัวจริงมีเสียง ในการ์ดเล่นแบบปิดเสียง กดแล้วเปิดวิดีโอเต็มพร้อมเสียง
+  {
+    name: "แม่ยุ้ย",
+    category: "แอปมือถือ · ร้านอาหารโฮมเมด ดูเมนู ค้นหา ใส่ตะกร้า และแชทถามร้าน",
+    url: "/showcase/mae-yui.mp4",
+    image: "/showcase/mae-yui.jpg",
+    video: "/showcase/mae-yui.mp4",
+    mediaBg: "#f4e5dc",
+    badge: "แอปมือถือ",
+  },
+  // ผลงานลูกค้าจริง: แอปขายอะไหล่บน App Store วิดีโอทำจากภาพหน้าจอแอป มีลิงก์ App Store แล้วใส่แทน url ได้ (ตอนนี้กดแล้วเปิดวิดีโอ)
+  {
+    name: "Rachanut",
+    category: "แอปมือถือบน App Store · ร้านอะไหล่ น็อต และอุปกรณ์ ค้นหาสินค้า คูปองส่วนลด สั่งซื้อในแอป",
+    url: "/showcase/rachanut.mp4",
+    image: "/showcase/rachanut-poster.jpg",
+    video: "/showcase/rachanut.mp4",
+    mediaBg: "linear-gradient(180deg, #f3eaa4, #ffd95e 50%, #ffd142)",
+    badge: "App Store",
+  },
 ];
 
 // demoUrl: ลิงก์เว็บตัวอย่างของแต่ละแพ็ก ตอนนี้ชี้ไปที่ dev server ในเครื่อง deploy เดโมแล้วต้องเปลี่ยนเป็นโดเมนจริง

@@ -9,6 +9,7 @@ export const THEME_KEY = "hc-theme";
 // swatch: [ฟ้า/พื้น, สีหลัก, ทอง] ให้ตรงกับ token ใน globals.css
 const themes = [
   { id: "sky", name: "ท้องฟ้าชมพู", note: "นุ่ม ละมุน", swatch: ["#a9b8e8", "#7a2150", "#f3c6da"] },
+  { id: "hamcache", name: "HamCache", note: "สีโลโก้", swatch: ["#fbe6e1", "#e8857a", "#3fc2a2"] },
   { id: "purple", name: "ม่วงทอง", note: "ความสำเร็จ", swatch: ["#e3d6f3", "#5b2a86", "#c79a33"] },
   { id: "green", name: "เขียวทอง", note: "โชคลาภ การค้า", swatch: ["#d6ece1", "#0f5c4a", "#b8892a"] },
   { id: "red", name: "แดงทอง", note: "เฮง ค้าขายรุ่ง", swatch: ["#fadccf", "#a3182b", "#c99227"] },

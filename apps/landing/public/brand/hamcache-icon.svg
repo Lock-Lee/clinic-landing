@@ -1,0 +1,8 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HamCache icon"><title>HamCache icon</title><g transform="translate(20,20) scale(1.6667)"><rect x="0" y="0" width="120" height="120" rx="28" fill="#2B2733"/>
+    <polyline points="30,38 17,60 30,82" fill="none" stroke="#3FC2A2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="90,38 103,60 90,82" fill="none" stroke="#3FC2A2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M39 34 L35 18 L53 30 Z" fill="#E8857A"/>
+    <path d="M81 34 L85 18 L67 30 Z" fill="#E8857A"/>
+    <ellipse cx="60" cy="63" rx="30" ry="24" fill="#E8857A"/>
+    <ellipse cx="51" cy="63" rx="4.5" ry="8" fill="#2B2733"/>
+    <ellipse cx="69" cy="63" rx="4.5" ry="8" fill="#2B2733"/></g></svg>

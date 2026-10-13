@@ -64,7 +64,10 @@ export default function Home() {
       </div>
       <header className="header">
         <div className="container header-inner">
-          <a href="#top" className="brand">{site.brand}</a>
+          <a href="#top" className="brand">
+            <img src="/brand/hamcache-icon.svg" alt="" className="brand-icon" width={40} height={40} />
+            <span className="brand-name">{site.brand}</span>
+          </a>
           <ThemeSwitcher />
           <a href="#contact" className="btn btn-primary header-cta">ขอใบเสนอราคา</a>
           <nav className="nav" aria-label="เมนูหลัก">
