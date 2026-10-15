@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Anuphan, IBM_Plex_Sans_Thai, Instrument_Serif } from "next/font/google";
-import { site } from "./content";
+import { site, seo } from "./content";
 import "./globals.css";
 
 const display = Anuphan({
@@ -26,14 +26,17 @@ const serif = Instrument_Serif({
   display: "swap",
 });
 
-const title = "รับทำเว็บไซต์และ Landing Page ทุกธุรกิจ | เริ่มต้น 12,000 บาท";
-const description =
-  "รับออกแบบเว็บไซต์และ Landing Page สำหรับร้านค้า คลินิก ร้านอาหาร และบริษัท 3 แพ็กเกจ พร้อม SEO, AEO, ระบบหลังบ้าน โดเมน โฮสติ้ง และดูแลเว็บรายเดือน";
+const { title, description } = seo;
+const ogImage = { url: "/brand/og.png", width: 1200, height: 630, alt: "HamCache รับทำเว็บไซต์ Landing Page และแอปมือถือ" };
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title,
   description,
+  keywords: seo.keywords,
+  applicationName: site.brand,
+  authors: [{ name: site.brand, url: site.url }],
+  category: "technology",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -42,10 +45,14 @@ export const metadata: Metadata = {
     siteName: site.brand,
     title,
     description,
-    images: [{ url: "/brand/hamcache-logo@1024.png", width: 1024, height: 374, alt: "HamCache" }],
+    images: [ogImage],
   },
-  twitter: { card: "summary_large_image", title, description, images: ["/brand/hamcache-logo@1024.png"] },
-  robots: { index: true, follow: true },
+  twitter: { card: "summary_large_image", title, description, images: [ogImage.url] },
+  verification: {
+    ...(site.verification.google ? { google: site.verification.google } : {}),
+    ...(site.verification.bing ? { other: { "msvalidate.01": site.verification.bing } } : {}),
+  },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
 };
 
 // ชุดสีที่ผู้ชมเลือกไว้ (components/theme-switcher.tsx) ตั้งก่อนวาดหน้า ไม่ให้สีกระพริบ

@@ -2,13 +2,26 @@ import type { LineReply, RichMenuItem } from "@repo/ui/line-chat";
 
 export const site = {
   brand: "HamCache",
-  url: "https://HamCache.vercel.app", // เปลี่ยนเป็นโดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap และ Schema
-  lineId: "[LINE ID ของคุณ]",
-  lineUrl: "#", // เช่น https://line.me/ti/p/~yourid
+  url: "https://hamcache.work", // โดเมนจริงของเว็บนี้ ใช้ทำ canonical, sitemap, llms.txt และ Schema
+  lineId: "@hamcache",
+  lineUrl: "https://line.me/R/ti/p/@hamcache", // ลิงก์เพิ่มเพื่อน LINE OA
   phone: "[เบอร์โทรของคุณ]",
   phoneHref: "#", // เช่น tel:0812345678
-  email: "[อีเมล]",
+  email: "hamcache@gmail.com",
   facebook: "[Facebook Page]",
+  // รหัสยืนยันเจ้าของเว็บ: Google Search Console (แบบ HTML tag) และ Bing Webmaster Tools ใส่เฉพาะค่าใน content="..." ว่างไว้ = ไม่ใส่ meta
+  verification: { google: "", bing: "" },
+};
+
+// ข้อความที่ยังเป็น [ตัวยึด] ไม่ใส่ลง Schema/llms.txt
+export const isFilled = (v: string) => Boolean(v) && !v.startsWith("[") && v !== "#";
+
+// SEO: title และ description ของหน้า (ใช้ใน layout.tsx และ llms.txt)
+export const seo = {
+  title: "รับทำเว็บไซต์ Landing Page และแอปมือถือ ทุกธุรกิจ | HamCache เริ่มต้น 12,000 บาท",
+  description:
+    "HamCache รับออกแบบและพัฒนาเว็บไซต์ Landing Page และแอปมือถือ ให้ร้านค้า ร้านอาหาร คลินิก และบริษัท ทั้งระบบหลังบ้านแก้เองได้ เชื่อม LINE OA และทำ SEO/AEO ให้ Google และ AI หาเจอ 3 แพ็กเกจ เริ่มต้น 12,000 บาท",
+  keywords: ["รับทำเว็บไซต์", "รับทำ Landing Page", "รับทำแอปมือถือ", "ออกแบบเว็บไซต์", "เว็บไซต์ร้านค้า", "เชื่อม LINE OA", "SEO", "AEO"],
 };
 
 export const hero = {
@@ -342,6 +355,14 @@ export const faqs = [
   {
     q: "ถ้าแก้ไขงานเกินจำนวนรอบในแพ็กเกจคิดเงินอย่างไร?",
     a: "คิดเป็นงาน CR (Change Request) ตามเนื้องานจริง และแจ้งราคาให้ยืนยันก่อนเริ่มทุกครั้ง",
+  },
+  {
+    q: "HamCache คือใคร ทำอะไรบ้าง?",
+    a: "HamCache เป็นทีมรับออกแบบและพัฒนาเว็บไซต์ Landing Page และแอปมือถือให้ธุรกิจในไทย ทำครบตั้งแต่ออกแบบ ระบบหลังบ้านที่แก้เนื้อหาเองได้ เชื่อม LINE OA ไปจนถึง SEO และ AEO ผลงานเช่น เว็บซื้อขายของมือสอง มีของ (Meekong) แอปสั่งอาหารร้านแม่ยุ้ย และแอปร้านอะไหล่ Rachanut",
+  },
+  {
+    q: "รับทำแอปมือถือด้วยไหม?",
+    a: "รับ ทั้งแอปบนมือถือและเว็บที่ใช้งานคู่กัน เช่น แอปสั่งอาหาร แอปร้านค้า ค้นหาสินค้า คูปอง และแชทกับร้าน ราคาแอปประเมินตามขอบเขตงาน ทัก LINE มาคุยรายละเอียดได้ฟรี",
   },
   {
     q: "รับทำเว็บธุรกิจประเภทไหนบ้าง?",

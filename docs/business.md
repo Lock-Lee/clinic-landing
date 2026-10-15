@@ -78,6 +78,7 @@
 - SEO: title, description, canonical, Open Graph, sitemap, robots
 - AEO: FAQ บนหน้าเว็บ + FAQPage Schema และ Schema ธุรกิจ (MedicalClinic / ProfessionalService) ให้ Google และ AI ดึงไปตอบได้
 - robots เปิดให้ AI crawler อ่าน
+- เว็บขายของเราเอง (`apps/landing`, โดเมน https://hamcache.work): Schema Organization + WebSite + ProfessionalService (ราคาแพ็ก) + ItemList ผลงาน (มีวิดีโอ) + FAQPage, ภาพแชร์ 1200x630 (`public/brand/og.png`), sitemap มีภาพผลงาน, `/llms.txt` สรุปบริการ ราคา ผลงาน FAQ ให้ AI อ่าน สร้างจาก `content.ts` อัตโนมัติ
 
 ## กฎหมายและความเสี่ยง
 

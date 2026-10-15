@@ -11,33 +11,79 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { TeamCard } from "@/components/team-card";
 import { WorkGallery } from "@/components/work-gallery";
 import { LineChatMock } from "@repo/ui/line-chat";
-import { site, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, pastWork, otherWork, showPastWork, faqs, lineTiers, lineAddon, lineDemo } from "./content";
+import { site, seo, isFilled, hero, statement, marqueeWords, showcase, heroImages, packages, domainRows, maPlans, steps, team, pastWork, otherWork, showPastWork, faqs, lineTiers, lineAddon, lineDemo } from "./content";
 import Motion from "./motion";
 
-// Schema.org ให้ Google และ AI เข้าใจว่าเว็บนี้ขายบริการอะไร ราคาเท่าไร และตอบคำถามอะไรได้
+// Schema.org ให้ Google และ AI เข้าใจว่าเว็บนี้คือใคร ขายบริการอะไร ราคาเท่าไร มีผลงานอะไร และตอบคำถามอะไรได้ (AEO)
+// ข้อมูลติดต่อที่ยังเป็น [ตัวยึด] จะไม่ถูกใส่
+const abs = (path: string) => (path.startsWith("http") ? path : `${site.url}${path}`);
+const prices = packages.map((p) => Number(p.price.replace(/,/g, "")));
+const sameAs = [site.facebook, site.lineUrl].filter((v) => isFilled(v) && v.startsWith("http"));
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#org`,
+      name: site.brand,
+      url: site.url,
+      logo: abs("/brand/hamcache-logo@1024.png"),
+      ...(sameAs.length ? { sameAs } : {}),
+      ...(isFilled(site.email) ? { email: site.email } : {}),
+      ...(isFilled(site.phone) ? { telephone: site.phone } : {}),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.brand,
+      inLanguage: "th-TH",
+      publisher: { "@id": `${site.url}/#org` },
+    },
     {
       "@type": "ProfessionalService",
       "@id": `${site.url}/#business`,
       name: site.brand,
       url: site.url,
-      email: site.email,
-      telephone: site.phone,
-      areaServed: "TH",
-      description: "รับออกแบบเว็บไซต์และ Landing Page สำหรับธุรกิจทุกประเภท",
+      image: abs("/brand/og.png"),
+      logo: abs("/brand/hamcache-logo@1024.png"),
+      parentOrganization: { "@id": `${site.url}/#org` },
+      ...(isFilled(site.email) ? { email: site.email } : {}),
+      ...(isFilled(site.phone) ? { telephone: site.phone } : {}),
+      areaServed: { "@type": "Country", name: "Thailand" },
+      priceRange: `฿${Math.min(...prices).toLocaleString("en-US")} - ฿${Math.max(...prices).toLocaleString("en-US")}`,
+      description: seo.description,
+      knowsAbout: ["ออกแบบเว็บไซต์", "Landing Page", "แอปมือถือ", "ระบบหลังบ้าน", "LINE OA", "SEO", "AEO", "Schema.org"],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "แพ็กเกจทำเว็บไซต์",
         itemListElement: packages.map((pkg) => ({
           "@type": "Offer",
           name: `แพ็กเกจ ${pkg.name}`,
-          description: [...pkg.features, ...pkg.meta.map((m) => `${m.label} ${m.value}`)].join(", "),
+          description: [pkg.summary, ...pkg.features, ...pkg.meta.map((m) => `${m.label} ${m.value}`)].join(", "),
           price: pkg.price.replace(/,/g, ""),
           priceCurrency: "THB",
+          itemOffered: { "@type": "Service", name: `${pkg.type} แพ็กเกจ ${pkg.name}`, serviceType: pkg.type },
         })),
       },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${site.url}/#showcase`,
+      name: "ผลงานของ HamCache",
+      itemListElement: showcase.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: item.name,
+          description: item.category,
+          url: abs(item.url),
+          image: abs(item.image),
+          creator: { "@id": `${site.url}/#org` },
+          ...(item.video ? { video: { "@type": "VideoObject", name: `วิดีโอผลงาน ${item.name}`, description: item.category, contentUrl: abs(item.video), thumbnailUrl: abs(item.image), uploadDate: "2026-10-15" } } : {}),
+        },
+      })),
     },
     {
       "@type": "FAQPage",
@@ -334,8 +380,10 @@ export default function Home() {
               <p>บอกชื่อธุรกิจและแพ็กเกจที่สนใจ เราจะส่งรายละเอียดกลับทาง LINE</p>
             </div>
             <div className="contact-actions">
-              <a href={site.lineUrl} className="btn btn-light">LINE: {site.lineId}</a>
-              <a href={site.phoneHref} className="btn btn-outline-light">โทร {site.phone}</a>
+              <a href={site.lineUrl} target="_blank" rel="noopener" className="btn btn-light">LINE: {site.lineId}</a>
+              {/* ปุ่มโทรขึ้นเมื่อใส่เบอร์จริงใน content.ts */}
+              {isFilled(site.phone) && <a href={site.phoneHref} className="btn btn-outline-light">โทร {site.phone}</a>}
+              <a href={`mailto:${site.email}`} className="btn btn-outline-light">{site.email}</a>
             </div>
           </div>
         </section>
@@ -346,7 +394,7 @@ export default function Home() {
           <div className="footer">
             <span>{site.brand}</span>
             <span>
-              {site.email} · {site.facebook}
+              {[site.email, site.lineId, site.facebook].filter(isFilled).join(" · ")}
             </span>
           </div>
           <RiseIn className="fx-footer-mark">
@@ -355,7 +403,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <a href={site.lineUrl} className="line-float" aria-label={`ทัก LINE ${site.lineId}`}>
+      <a href={site.lineUrl} target="_blank" rel="noopener" className="line-float" aria-label={`ทัก LINE ${site.lineId}`}>
         LINE
       </a>
     </>
